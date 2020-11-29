@@ -1,8 +1,9 @@
 <template>
-  <tr>
+  <tr class="align-items-center">
     <th scope="row">{{ category.id }}</th>
     <td>{{ category.categoryName }}</td>
     <td>1/4</td>
+    <td><button class="btn btn-primary">Edit</button></td>
     <td><button class="btn btn-danger">Remove</button></td>
   </tr>
 </template>
@@ -14,5 +15,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

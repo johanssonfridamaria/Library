@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <h1 class="py-4 border-bottom text-left">Categories</h1>
-    <div class="py-5 col-md-8">
-      <h2 class="text-left">Add a new Category</h2>
+    <div class="py-5 mb-4 col-md-8">
+      <h2 class="text-left mb-4">Add a new Category</h2>
       <addCategory @add-category="add" :categories="categories" />
     </div>
     <div class="col-12">
-      <h2 class="text-left">Added categories</h2>
+      <h2 class="text-left mb-4">Added categories</h2>
       <categoriesTable :categories="categories" />
     </div>
   </div>
@@ -44,4 +44,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+td,
+th {
+  vertical-align: baseline !important;
+}
+</style>
