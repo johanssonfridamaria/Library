@@ -1,13 +1,18 @@
 <template>
   <div>
     <h1>Categories</h1>
+    <addCategory @add-category="add" />
   </div>
 </template>
 
 <script>
+import AddCategory from '../components/Categories/AddCategory';
+
 export default {
   name: 'Categories',
-  components: {},
+  components: {
+    AddCategory,
+  },
   data() {
     return {
       categories: [
@@ -17,6 +22,15 @@ export default {
         { id: 4, categoryName: 'Thriller' },
       ],
     };
+  },
+  methods: {
+    add(categoryTitle) {
+      let category = {
+        id: Date.now(),
+        title: categoryTitle,
+      };
+      this.categories.push(category);
+    },
   },
 };
 </script>
