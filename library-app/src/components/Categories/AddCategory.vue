@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="$emit('add-category', this.title)">
+    <form @submit.prevent="$emit('add-category', categoryName)">
       <label for="categoryName">Add a new Category</label>
       <input
         type="text"
