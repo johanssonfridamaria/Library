@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Library</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand headline" href="/">LIBRARY</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -47,6 +47,6 @@ export default {
 
 <style>
 .router-link-active {
-  color: green;
+  color: white;
 }
 </style>
