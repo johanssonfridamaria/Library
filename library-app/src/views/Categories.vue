@@ -1,8 +1,14 @@
 <template>
   <div class="container">
-    <h1>Categories</h1>
-    <addCategory @add-category="add" :categories="categories" />
-    <categoriesTable :categories="categories" />
+    <h1 class="py-4 border-bottom text-left">Categories</h1>
+    <div class="py-5 col-md-8">
+      <h2 class="text-left">Add a new Category</h2>
+      <addCategory @add-category="add" :categories="categories" />
+    </div>
+    <div class="col-12">
+      <h2 class="text-left">Added categories</h2>
+      <categoriesTable :categories="categories" />
+    </div>
   </div>
 </template>
 
