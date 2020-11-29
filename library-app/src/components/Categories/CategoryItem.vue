@@ -3,7 +3,7 @@
     <th scope="row">{{ category.id }}</th>
     <td>{{ category.categoryName }}</td>
     <td>1/4</td>
-    <td><button>Remove</button></td>
+    <td><button class="btn btn-danger">Remove</button></td>
   </tr>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="table-responsive">
     <div v-if="categories.length">
-      <table class="table table-striped table-sm">
-        <thead>
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
