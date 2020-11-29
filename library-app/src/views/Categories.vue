@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     add(input) {
-      if(input )
       let category = {
         id: Date.now(),
         categoryName: input,
