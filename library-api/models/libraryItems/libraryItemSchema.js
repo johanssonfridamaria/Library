@@ -1,12 +1,12 @@
 //imports mongoose from node modules
 const mongodb = require('mongoose');
-const Category = require('./categorySchema');
+const Category = require('../categories/categorySchema');
 
 //creating mongodb Schema
 const libraryItemSchema = mongodb.Schema({
 
   _id: mongodb.Schema.Types.ObjectId,
-  categoryId: { type: Schema.Types.ObjectId, ref: Category, required:true },
+  categoryId: { type: mongodb.Schema.Types.ObjectId, ref: Category, required:true },
   title: { type: String, required: true},
   author: { type: String, required: true},
   pages: { type: Number, required: true},
