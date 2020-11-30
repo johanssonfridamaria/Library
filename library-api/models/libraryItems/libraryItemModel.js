@@ -104,7 +104,7 @@ exports.checkOutLibraryItem = (req, res) => {
 };
 
 //Check in Library Item
-exports.checkOutLibraryItem = (req, res) => {
+exports.checkInLibraryItem = (req, res) => {
   LibraryItem.updateOne({ _id: req.params.id }, req.body)
   .then(() => {
       LibraryItem.updateOne({ _id: req.params.id }, { $set: {borrower:'', borrowDate: '', isBorrowable:true,}})
