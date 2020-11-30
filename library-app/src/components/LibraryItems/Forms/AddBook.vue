@@ -1,9 +1,5 @@
 <template>
-  <form
-    class="needs-validation"
-    novalidate
-    @submit.prevent="$emit('add-book-item', book)"
-  >
+  <form class="needs-validation" novalidate @submit.prevent="addBook">
     <div class="form-row">
       <div class="col-md-6 mb-3">
         <label for="title">Title</label>
@@ -96,6 +92,8 @@
 </template>
 
 <script>
+import EventBus from '../../../event-bus';
+
 export default {
   name: 'AddBook',
   data() {
@@ -109,6 +107,11 @@ export default {
         isBorrowable: '',
       },
     };
+  },
+  methods: {
+    addBook() {
+      EventBus.$emit('addBook', this.book);
+    },
   },
 };
 </script>
