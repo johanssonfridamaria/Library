@@ -30,7 +30,7 @@ exports.getOneLibraryItem = (req, res) => {
 //create a new LibraryItem
 exports.createLibraryItem = (req, res) => {
 
-  const LibraryItem = new LibraryItem({
+  const libraryItem = new LibraryItem({
     _id: mongodb.Schema.Types.ObjectId,
     categoryId: req.body.categoryId,
     title: req.body.title,
@@ -42,7 +42,7 @@ exports.createLibraryItem = (req, res) => {
 
   });
 
-  LibraryItem.save()
+  libraryItem.save()
     .then(() => {
       res.status(201).json({
         statusCode: 201,
