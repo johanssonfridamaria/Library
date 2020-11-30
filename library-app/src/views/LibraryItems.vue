@@ -1,13 +1,12 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-3">
+    <h1 class="py-4 border-bottom text-left">Library Items</h1>
+    <div class="py-5 row">
+      <div class="col-md-3">
         <libraryTabs />
       </div>
-      <div class="col-9">
+      <div class="col-md-9">
         <router-view />
-        <h2 class="text-left mb-4">Library</h2>
-        <libraryTable />
       </div>
     </div>
   </div>
@@ -15,13 +14,11 @@
 
 <script>
 import LibraryTabs from '../components/LibraryItems/LibraryTabs';
-import LibraryTable from '../components/LibraryItems/LibraryTable';
 
 export default {
   name: 'LibraryItems',
   components: {
     LibraryTabs,
-    LibraryTable,
     // data() {
     //   return {
     //     libraryItems: [],
