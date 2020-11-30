@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 //import controllers
 const categoriesController = require('./controllers/categoriesController');
+const libraryItemsController = require('./controllers/libraryItemsController');
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*")
@@ -20,6 +21,7 @@ app.use(express.json());
 
 //controllers
 app.use('/api/categories', categoriesController);
+app.use('/api/libraryItems', libraryItemsController);
 
 //export file
 module.exports = app;
