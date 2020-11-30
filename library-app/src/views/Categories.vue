@@ -45,8 +45,4 @@ export default {
 </script>
 
 <style>
-td,
-th {
-  vertical-align: baseline !important;
-}
 </style>
