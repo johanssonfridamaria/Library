@@ -1,10 +1,28 @@
 <template>
   <div>
-    <selectType @select-type="selectType" />
-    <addBook />
-    <addDVD />
-    <addAudioBook />
-    <addRefBook />
+    <div class="col-md-12">
+      <h1 class="text-left">Add new Library Item</h1>
+    </div>
+    <div class="py-5 mb-4 col-md-8">
+      <h5 class="mb-4">Please select what type of Item you want to add</h5>
+      <selectType @select-type="selectType" />
+    </div>
+    <div v-if="this.selection === 'book'" class="py-3 mb-4 col-md-8">
+      <h2 class="text-left mb-4">Add a new Book</h2>
+      <addBook />
+    </div>
+    <div v-else-if="this.selection === 'dvd'" class="py-3 mb-4 col-md-8">
+      <h2 class="text-left mb-4">Add a new DVD</h2>
+      <addDVD />
+    </div>
+    <div v-else-if="this.selection === 'audio-book'" class="py-3 mb-4 col-md-8">
+      <h2 class="text-left mb-4">Add a new Audio Book</h2>
+      <addAudioBook />
+    </div>
+    <div v-else-if="this.selection === 'ref-book'" class="py-3 mb-4 col-md-8">
+      <h2 class="text-left mb-4">Add a new Reference Book</h2>
+      <addRefBook />
+    </div>
   </div>
 </template>
 
@@ -26,27 +44,12 @@ export default {
   },
   data() {
     return {
-      select: '',
+      selection: '',
     };
   },
   methods: {
     selectType(value) {
-      switch (value) {
-        case 'book':
-          this.select = 'book';
-          break;
-        case 'dvd':
-          this.select = 'dvd';
-          break;
-        case 'audio-book':
-          this.select = 'audio-book';
-          break;
-        case 'ref-book':
-          this.select = 'ref-book';
-          break;
-        default:
-          this.select = '';
-      }
+      this.selection = value;
     },
   },
 };
