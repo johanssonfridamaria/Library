@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar navbar-light bg-light">
+  <div class="navbar navbar-light">
     <ul class="nav flex-column navbar-nav text-left">
       <li class="nav-item">
         <router-link :to="{ name: 'LibraryTable' }" exact class="nav-link">
