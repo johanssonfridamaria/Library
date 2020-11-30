@@ -28,17 +28,6 @@
 <script>
 export default {
   name: 'LibraryTabs',
-  data() {
-    return {
-      tabs: [
-        'Library Items',
-        'Add Library Item',
-        'Edit Library Item',
-        'Check in/Check out Library Item',
-      ],
-      selectedTab: 'Library Items',
-    };
-  },
 };
 </script>
 
