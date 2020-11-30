@@ -9,7 +9,7 @@
     </div>
     <div v-if="this.selection === 'book'" class="py-3 mb-4 col-md-12 m-auto">
       <h2 class="text-left mb-4">Add a new Book</h2>
-      <addBook @add-book="addBook" />
+      <addBook />
     </div>
     <div v-else-if="this.selection === 'dvd'" class="py-3 mb-4 col-md-8">
       <h2 class="text-left mb-4">Add a new DVD</h2>
@@ -51,7 +51,6 @@ export default {
     selectType(value) {
       this.selection = value;
     },
-    addBook(book) {},
   },
 };
 </script>
