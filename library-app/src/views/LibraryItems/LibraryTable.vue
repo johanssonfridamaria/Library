@@ -34,6 +34,7 @@
 
 <script>
 import LibraryItem from '../../components/LibraryItems/LibraryItem';
+import EventBus from '../../event-bus';
 
 export default {
   name: 'LibraryTable',
@@ -57,6 +58,24 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    mounted() {
+      EventBus.$on('addBook', function (book) {
+        let item = {
+          id: book.id,
+          categoryId: book.categoryId,
+          title: book.title,
+          author: book.author,
+          pages: book.pages,
+          borrowable: true,
+          borrower: 'Frida Johansson',
+          borrowDate: Date.now(),
+          type: book.type,
+        };
+        this.library.push(item);
+      });
+    },
   },
 };
 </script>
