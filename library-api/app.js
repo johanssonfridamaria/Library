@@ -3,7 +3,7 @@ const express = require('express');
 //syncronizing express with our app
 const app = express();
 //import controllers
-const categoryController = require('./controllers/categoryController');
+const categoriesController = require('./controllers/categoriesController');
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*")
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //controllers
-app.use('/api/categories', categoryController);
+app.use('/api/categories', categoriesController);
 
 //export file
 module.exports = app;
