@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-3">
-        <libraryNav />
+        <libraryTabs />
       </div>
       <div class="col-9">
         <router-view />
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import LibraryNav from '../components/LibraryItems/LibraryNav';
+import LibraryTabs from '../components/LibraryItems/LibraryTabs';
 import LibraryTable from '../components/LibraryItems/LibraryTable';
 
 export default {
   name: 'LibraryItems',
   components: {
-    LibraryNav,
+    LibraryTabs,
     LibraryTable,
     // data() {
     //   return {
