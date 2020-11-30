@@ -25,30 +25,38 @@ const routes = [
     name: 'LibraryItems',
     component: () =>
       import(/* webpackChunkName: 'library-items' */ '../views/LibraryItems.vue'),
+    children: [
+      {
+        path: 'library-table',
+        name: 'LibraryTable',
+        component: () =>
+          import(/* webpackChunkName: 'add-library-item' */ '../views/LibraryItems/LibraryTable.vue'),
+      },
+      {
+        path: 'add-library-item',
+        name: 'AddItem',
+        component: () =>
+          import(/* webpackChunkName: 'add-library-item' */ '../views/LibraryItems/AddItem.vue'),
+      },
+      {
+        path: 'edit-library-item',
+        name: 'EditItem',
+        component: () =>
+          import(/* webpackChunkName: 'edit-library-item' */ '../views/LibraryItems/EditItem.vue'),
+      },
+      {
+        path: 'lend-library-item',
+        name: 'LendItem',
+        component: () =>
+          import(/* webpackChunkName: 'lend-library-item' */ '../views/LibraryItems/LendItem'),
+      },
+    ]
   },
   {
     path: '/employees',
     name: 'Employees',
     component: () =>
       import(/* webpackChunkName: 'employees' */ '../views/Employees.vue'),
-  },
-  {
-    path: '/add-library-item',
-    name: 'AddItem',
-    component: () =>
-      import(/* webpackChunkName: 'add-library-item' */ '../views/LibraryItems/AddItem.vue'),
-  },
-  {
-    path: '/edit-library-item',
-    name: 'EditItem',
-    component: () =>
-      import(/* webpackChunkName: 'edit-library-item' */ '../views/LibraryItems/EditItem.vue'),
-  },
-  {
-    path: '/lend-library-item',
-    name: 'LendItem',
-    component: () =>
-      import(/* webpackChunkName: 'lend-library-item' */ '../views/LibraryItems/LendItem'),
   },
 ];
 
