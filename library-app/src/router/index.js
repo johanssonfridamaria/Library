@@ -32,6 +32,24 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: 'employees' */ '../views/Employees.vue'),
   },
+  {
+    path: '/add-library-item',
+    name: 'AddItem',
+    component: () =>
+      import(/* webpackChunkName: 'add-library-item' */ '../views/LibraryItems/AddItem.vue'),
+  },
+  {
+    path: '/edit-library-item',
+    name: 'EditItem',
+    component: () =>
+      import(/* webpackChunkName: 'edit-library-item' */ '../views/LibraryItems/EditItem.vue'),
+  },
+  {
+    path: '/lend-library-item',
+    name: 'LendItem',
+    component: () =>
+      import(/* webpackChunkName: 'lend-library-item' */ '../views/LibraryItems/LendItem'),
+  },
 ];
 
 const router = new VueRouter({
