@@ -25,7 +25,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'LibraryItems' }" exact class="nav-link">
+          <router-link :to="{ name: 'LibraryTable' }" exact class="nav-link">
             Library Items
           </router-link>
         </li>
