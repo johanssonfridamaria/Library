@@ -24,22 +24,10 @@ export default {
   },
   data() {
     return {
-      categories: [
-        // { id: 1, categoryName: 'Fiction' },
-        // { id: 2, categoryName: 'Biography' },
-        // { id: 3, categoryName: 'Romance' },
-        // { id: 4, categoryName: 'Thriller' },
-      ],
+      categories: [],
     };
   },
   methods: {
-    // add(input) {
-    //   let category = {
-    //     id: Date.now(),
-    //     categoryName: input,
-    //   };
-    //   this.categories.push(category);
-    // },
     add(input) {
       fetch('http://localhost:8000/api/categories/new', {
         method: 'POST',
@@ -61,10 +49,10 @@ export default {
           this.categories = categoriesInDb;
         });
     },
-    //Fetches categories from DB when app starts
-    created() {
-      this.fetchCategories();
-    },
+  },
+  //Fetches categories from DB when app starts
+  created() {
+    this.fetchCategories();
   },
 };
 </script>
