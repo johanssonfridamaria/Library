@@ -13,9 +13,10 @@
         </thead>
         <tbody>
           <categoryItem
-            v-for="_category in categories"
-            :key="_category.id"
-            :category="_category"
+            v-for="category in categories"
+            :key="category.id"
+            :category="category"
+            @delete-category="$emit('delete-category', category._id)"
           />
         </tbody>
       </table>

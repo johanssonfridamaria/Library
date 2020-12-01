@@ -4,7 +4,14 @@
     <td>{{ category.name }}</td>
     <td>{{ category.numberOfLibraryItems }}</td>
     <td><button class="btn btn-primary">Edit</button></td>
-    <td><button class="btn btn-danger">Remove</button></td>
+    <td>
+      <button
+        class="btn btn-danger"
+        @click="$emit('delete-category', category._id)"
+      >
+        Remove
+      </button>
+    </td>
   </tr>
 </template>
 
