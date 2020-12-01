@@ -3,7 +3,7 @@
     <th scope="row">{{ category._id }}</th>
     <td>{{ category.name }}</td>
     <td>{{ category.numberOfLibraryItems }}</td>
-    <td><button class="btn btn-primary">Edit</button></td>
+    <td><button class="btn btn-primary" @click="$emit('edit-category', category.id)">Edit</button></td>
     <td>
       <button
         class="btn btn-danger"
