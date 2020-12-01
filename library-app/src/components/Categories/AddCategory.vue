@@ -8,14 +8,15 @@
           type="text"
           id="name"
           v-model="name"
-          :class="{ 'is-invalid': error }"
+          :class="{ 'is-invalid': error || errorMessage !== '' }"
         />
         <div class="input-group-append">
           <button class="btn btn-dark">Add</button>
         </div>
       </div>
       <div class="input-group">
-        <div class="invalid-feedback">Please insert valid input!</div>
+        <div v-if="error">Please insert valid input!</div>
+        <div v-if="errorMessage !== ''">{{ this.errorMessage }}</div>
         <small class="form-text text-muted"
           >The Category name must be atleast 3 characters long and has to be
           unique.</small
@@ -28,6 +29,7 @@
 <script>
 export default {
   name: 'AddCategory',
+  props: ['errorMessage'],
   data() {
     return {
       name: '',
@@ -36,11 +38,11 @@ export default {
   },
   methods: {
     addCategory() {
-      if (this.name !== '' || this.name.length < 3) {
+      if (this.name === '' || this.name.length < 3) {
+        this.error = true;
+      } else {
         this.$emit('add-category', this.name);
         (this.name = ''), (this.error = false);
-      } else {
-        this.error = true;
       }
     },
   },
