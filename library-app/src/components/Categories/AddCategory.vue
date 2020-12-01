@@ -1,13 +1,14 @@
 <template>
-  <form @submit.prevent="$emit('add-category', categoryName)">
+  <form @submit.prevent="addCategory">
     <div class="form-row text-left">
-      <label for="categoryName">Category name:</label>
+      <label for="name">Category name:</label>
       <div class="input-group">
         <input
           class="form-control"
           type="text"
-          id="categoryName"
-          v-model="categoryName"
+          id="name"
+          v-model="name"
+          :class="{ 'is-invalid': error }"
         />
         <div class="input-group-append">
           <button class="btn btn-dark">Add</button>
@@ -29,8 +30,19 @@ export default {
   name: 'AddCategory',
   data() {
     return {
-      categoryName: '',
+      name: '',
+      error: false,
     };
+  },
+  methods: {
+    addCategory() {
+      if (this.name !== '' || this.name.length < 3) {
+        this.$emit('add-category', this.name);
+        (this.name = ''), (this.error = false);
+      } else {
+        this.error = true;
+      }
+    },
   },
 };
 </script>
