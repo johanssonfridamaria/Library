@@ -35,7 +35,7 @@ exports.createCategory = (req, res) => {
         return res.status(400).json({
           statusCode: 400,
           status: false,
-          message: 'A category by that name already exists, please update category instead'
+          message: 'A category by that name already exists!'
         });
       };
 
