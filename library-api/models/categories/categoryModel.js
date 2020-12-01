@@ -42,6 +42,7 @@ exports.createCategory = (req, res) => {
       const category = new Category({
         _id: new mongodb.Types.ObjectId,
         name: req.body.name,
+        numberOfLibraryItems: req.body.numberOfLibraryItems
       });
 
       category.save()
