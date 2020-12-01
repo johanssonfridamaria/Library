@@ -11,11 +11,8 @@
     </div>
     <div class="mb-4 col-md-6">
       <h2 class="text-left mb-4">Edit Category</h2>
-      <editCategory
-        @update-category="updateCategory"
-        :categories="categories"
-        :errorMessage="errorMessage"
-      />
+      <!-- @update-category="updateCategory" -->
+      <editCategory :categories="categories" :errorMessage="errorMessage" />
     </div>
     <div class="col-12">
       <h2 class="text-left mb-4">Added categories</h2>

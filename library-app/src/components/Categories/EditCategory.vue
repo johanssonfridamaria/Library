@@ -1,13 +1,14 @@
 <template>
-  <form @submit.prevent="updateCategory">
+  <!-- @submit.prevent="updateCategory" -->
+  <form>
     <div class="form-row text-left">
-      <label for="name">Category name:</label>
+      <label for="newName">Category name:</label>
       <div class="input-group">
         <input
           class="form-control"
           type="text"
-          id="name"
-          v-model="name"
+          id="newName"
+          v-model="newName"
           :class="{ 'is-invalid': error || errorMessage !== '' }"
         />
         <div class="input-group-append">
@@ -21,18 +22,20 @@
           >The Category name must be atleast 3 characters long and has to be
           unique.</small
         >
+        <p>{{ this.newName }}</p>
       </div>
     </div>
   </form>
 </template>
 
 <script>
+import EventBus from '../../event-bus';
 export default {
   name: 'EditCategory',
   props: ['errorMessage'],
   data() {
     return {
-      name: '',
+      newName: '',
       error: false,
     };
   },
@@ -45,6 +48,15 @@ export default {
     //     (this.name = ''), (this.error = false);
     //   }
     // },
+  },
+  created() {
+    console.log('created');
+  },
+  mounted() {
+    EventBus.$on('editCategory', function (category) {
+      this.newName = category.name;
+      console.log(arguments);
+    });
   },
 };
 </script>
