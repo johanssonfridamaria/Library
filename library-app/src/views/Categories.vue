@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="py-4 border-bottom text-left">Categories</h1>
-    <div class="py-5 mb-4 col-md-8">
+    <div class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Add a new Category</h2>
       <addCategory @add-category="add" :categories="categories" />
     </div>
@@ -25,20 +25,45 @@ export default {
   data() {
     return {
       categories: [
-        { id: 1, categoryName: 'Fiction' },
-        { id: 2, categoryName: 'Biography' },
-        { id: 3, categoryName: 'Romance' },
-        { id: 4, categoryName: 'Thriller' },
+        // { id: 1, categoryName: 'Fiction' },
+        // { id: 2, categoryName: 'Biography' },
+        // { id: 3, categoryName: 'Romance' },
+        // { id: 4, categoryName: 'Thriller' },
       ],
     };
   },
   methods: {
+    // add(input) {
+    //   let category = {
+    //     id: Date.now(),
+    //     categoryName: input,
+    //   };
+    //   this.categories.push(category);
+    // },
     add(input) {
-      let category = {
-        id: Date.now(),
-        categoryName: input,
-      };
-      this.categories.push(category);
+      fetch('http://localhost:8000/api/categories/new', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+          name: input,
+        }),
+      })
+        .then(response => response.json())
+        .then(() => this.fetchCategories());
+    },
+    //Fetches categories from api
+    fetchCategories() {
+      fetch('http://localhost:8000/api/categories')
+        .then(response => response.json())
+        .then(categoriesInDb => {
+          this.categories = categoriesInDb;
+        });
+    },
+    //Fetches categories from DB when app starts
+    created() {
+      this.fetchCategories();
     },
   },
 };
