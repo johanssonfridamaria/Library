@@ -12,11 +12,6 @@
 export default {
   name: 'CategoryItem',
   props: ['category'],
-  data() {
-    // return {
-    //   // categoryName: this.category.name,
-    // };
-  },
 };
 </script>
 
