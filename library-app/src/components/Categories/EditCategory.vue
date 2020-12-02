@@ -56,7 +56,7 @@ export default {
           .then(response => response.json())
           .then(response => this.$emit('handle-errors', response))
           .then(data => this.$emit('update-table', data));
-        (this.newName = ''), (this.error = false), (this.edit = false);
+        (this.newName = ''), (this.error = false);
       }
     },
   },

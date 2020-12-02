@@ -16,6 +16,7 @@
             v-for="category in categories"
             :key="category.id"
             :category="category"
+            :edit="edit"
             @delete-category="$emit('delete-category', category._id)"
           />
         </tbody>
@@ -32,7 +33,7 @@ import CategoryItem from './CategoryItem';
 
 export default {
   name: 'CategoriesTable',
-  props: ['categories'],
+  props: ['categories', 'edit'],
   components: {
     CategoryItem,
   },

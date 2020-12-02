@@ -20,13 +20,16 @@ import EventBus from '../../event-bus';
 
 export default {
   name: 'CategoryItem',
-  props: ['category'],
+  props: ['category', 'edit'],
   data() {
-    return {};
+    return {
+      newEdit: this.error,
+    };
   },
   methods: {
     editCategory() {
-      EventBus.$emit('editCategory', this.category);
+      this.newEdit = true;
+      EventBus.$emit('editCategory', this.category, this.newEdit);
     },
   },
 };

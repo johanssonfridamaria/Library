@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="py-4 border-bottom text-left">Categories</h1>
-    <div class="py-5 mb-4 col-md-6">
+    <div v-if="!edit" class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Add a new Category</h2>
       <addCategory
         @add-category="addCategory"
@@ -9,13 +9,14 @@
         :errorMessage="errorMessage"
       />
     </div>
-    <div class="mb-4 col-md-6">
+    <div v-if="edit" class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Edit Category</h2>
       <editCategory
         :errorMessage="errorMessage"
         :apiURI="apiURI"
         @update-table="updateTable"
         @handle-errors="handleErrors"
+        :edit="edit"
       />
     </div>
     <div class="col-12">
@@ -23,6 +24,7 @@
       <categoriesTable
         :categories="categories"
         @delete-category="delCategory"
+        :edit="edit"
       />
     </div>
   </div>
@@ -32,6 +34,7 @@
 import AddCategory from '../components/Categories/AddCategory';
 import CategoriesTable from '../components/Categories/CategoriesTable';
 import EditCategory from '../components/Categories/EditCategory';
+import EventBus from '../event-bus';
 
 export default {
   name: 'Categories',
@@ -45,6 +48,7 @@ export default {
       categories: [],
       apiURI: 'http://localhost:8000/api/categories',
       errorMessage: '',
+      edit: false,
     };
   },
   methods: {
@@ -85,10 +89,16 @@ export default {
     },
     updateTable() {
       this.fetchCategories();
+      this.edit = false;
     },
   },
   created() {
     this.fetchCategories();
+  },
+  mounted() {
+    EventBus.$on('editCategory', (category, newEdit) => {
+      this.edit = newEdit;
+    });
   },
 };
 </script>
