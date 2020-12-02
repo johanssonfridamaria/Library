@@ -7,7 +7,7 @@ const ObjectId = mongodb.Schema.Types.ObjectId
 const categorySchema = mongodb.Schema({
 
   _id: ObjectId,
-  name: { type: String, required: true, unique: true, collation: { locale: 'en', strength: 2 } },
+  name: { type: String, required: true, unique: true, },
   numberOfLibraryItems: {type: Number, default: ''},
 
   created: { type: Date, default: Date.now() },
