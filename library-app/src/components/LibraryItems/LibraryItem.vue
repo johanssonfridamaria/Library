@@ -1,23 +1,35 @@
 <template>
   <tr class="align-items-center">
-    <th scope="row">{{ libraryItem.id }}</th>
-    <td>{{ libraryItem.categoryId }}</td>
-    <td>{{ libraryItem.title }}</td>
-    <td>{{ libraryItem.author }}</td>
-    <td>{{ libraryItem.pages }}</td>
-    <td>{{ libraryItem.runTime }}</td>
-    <td>{{ libraryItem.borrowable }}</td>
-    <td>{{ libraryItem.borrower }}</td>
-    <td>{{ libraryItem.borrowDate }}</td>
-    <td>{{ libraryItem.type }}</td>
-    <td><button class="btn btn-danger">Remove</button></td>
+    <th scope="row">{{ item._id }}</th>
+    <td>{{ item.categoryId }}</td>
+    <td>{{ item.title }}</td>
+    <td>{{ item.author }}</td>
+    <td>{{ item.pages }}</td>
+    <td>{{ item.runTimeMinutes }}</td>
+    <td>{{ item.isBorrowable }}</td>
+    <td>{{ item.borrower }}</td>
+    <td>{{ item.borrowDate }}</td>
+    <td>{{ item.type }}</td>
+    <td><button class="btn btn-primary">Edit</button></td>
+    <td>
+      <button class="btn btn-danger" @click="$emit('delete-item', item._id)">
+        Remove
+      </button>
+    </td>
   </tr>
 </template>
 
 <script>
+import Eventbus from '../../event-bus';
+
 export default {
   name: 'LibraryItem',
-  props: ['libraryItem'],
+  props: ['item'],
+  methods: {
+    delItem() {
+      Eventbus.$emit('delete-item', this.item._id);
+    },
+  },
 };
 </script>
 
