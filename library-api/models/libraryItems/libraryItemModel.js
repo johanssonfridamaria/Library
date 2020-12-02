@@ -1,6 +1,5 @@
 //imports mongoose from node modules
 const mongodb = require('mongoose');
-
 const LibraryItem = require('./libraryItemSchema');
 
 //get all libraryItems
@@ -27,6 +26,7 @@ exports.getOneLibraryItem = (req, res) => {
     }));
 };
 
+//get libraryItems with a specifik category id.
 exports.getLibraryItemsByCatId =(req,res)=> {
   LibraryItem.find({categoryId: req.params.id})
   .then(data => res.status(200).json(data))

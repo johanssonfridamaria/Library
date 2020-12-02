@@ -8,7 +8,6 @@ const categorySchema = mongodb.Schema({
 
   _id: ObjectId,
   name: { type: String, required: true, unique: true, },
-  numberOfLibraryItems: {type: Number, default: ''},
 
   created: { type: Date, default: Date.now() },
   modified: { type: Date, default: Date.now() },

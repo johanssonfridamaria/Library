@@ -2,7 +2,7 @@
 const mongodb = require('mongoose');
 
 const Category = require('./categorySchema');
-
+const LibraryItem = require('../libraryItems/libraryItemSchema');
 //get all categories in Categories
 exports.getCategories = (req, res) => {
   Category.find()
@@ -29,7 +29,7 @@ exports.getOneCategory = (req, res) => {
 
 //create a new category
 exports.createCategory = (req, res) => {
-  Category.find({ name: { $regex : new RegExp(req.body.name , "i") }})
+  Category.find({ name: { $regex: new RegExp(req.body.name, "i") } })
     .then(exists => {
       if (exists.length > 0) {
         return res.status(400).json({
@@ -42,7 +42,6 @@ exports.createCategory = (req, res) => {
       const category = new Category({
         _id: new mongodb.Types.ObjectId,
         name: req.body.name,
-        numberOfLibraryItems: req.body.numberOfLibraryItems
       });
 
       category.save()
@@ -65,7 +64,7 @@ exports.createCategory = (req, res) => {
 
 //update category
 exports.updateCategory = (req, res) => {
-  Category.find({ name: { $regex : new RegExp(req.body.name , "i") }})
+  Category.find({ name: { $regex: new RegExp(req.body.name, "i") } })
     .then(exists => {
       if (exists.length > 0) {
         return res.status(400).json({
@@ -99,20 +98,32 @@ exports.updateCategory = (req, res) => {
 
 //delete category
 exports.deleteCategory = (req, res) => {
-  Category.deleteOne({ _id: req.params.id })
-    .then(() => {
-      res.status(200).json({
-        statusCode: 200,
-        status: true,
-        message: 'Category deleted!'
-      })
-    })
-    .catch(() => {
-      res.status(500).json({
-        statusCode: 500,
-        status: false,
-        message: 'Failed to delete category'
-      })
+    LibraryItem.find({ categoryId: req.params.id })
+    .then(exists => {
+      if (exists.length > 0) {
+        return res.status(400).json({
+          statusCode: 400,
+          status: false,
+          message: 'The category contains libraryItems!'
+        });
+      }
+      else {
+        Category.deleteOne({ _id: req.params.id })
+          .then(() => {
+            res.status(200).json({
+              statusCode: 200,
+              status: true,
+              message: 'Category deleted!'
+            })
+          })
+          .catch(() => {
+            res.status(500).json({
+              statusCode: 500,
+              status: false,
+              message: 'Failed to delete category'
+            })
+          })
+      }
     })
 }
 
