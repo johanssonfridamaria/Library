@@ -31,7 +31,7 @@ import EventBus from '../../event-bus';
 
 export default {
   name: 'EditCategory',
-  props: ['errorMessage', 'apiURI'],
+  props: ['errorMessage', 'apiURI', 'edit'],
   data() {
     return {
       newName: '',
@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     updateCategory() {
-      console.log(this.newId, this.newName, this.apiURI);
       if (this.newName === '' || this.newName.length < 3) {
         this.error = true;
       } else {
@@ -57,7 +56,7 @@ export default {
           .then(response => response.json())
           .then(response => this.$emit('handle-errors', response))
           .then(data => this.$emit('update-table', data));
-        (this.newName = ''), (this.error = false);
+        (this.newName = ''), (this.error = false), (this.edit = false);
       }
     },
   },
