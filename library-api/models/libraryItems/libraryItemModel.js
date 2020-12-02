@@ -27,6 +27,17 @@ exports.getOneLibraryItem = (req, res) => {
     }));
 };
 
+exports.getLibraryItemsByCatId =(req,res)=> {
+  LibraryItem.find({categoryId: req.params.id})
+  .then(data => res.status(200).json(data))
+  .catch(err => res.status(500).json({
+    statusCode: 500,
+    status: false,
+    message: 'Failed to get library item',
+    error: err
+  }));
+}
+
 //create a new LibraryItem
 exports.createLibraryItem = (req, res) => {
 
