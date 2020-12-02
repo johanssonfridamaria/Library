@@ -21,7 +21,8 @@ export default {
     LibraryTabs,
     // data() {
     //   return {
-    //     libraryItems: [],
+    //     // libraryItems: [],
+    //     // apiURI: 'http://localhost:8000/api/libraryItems',
     //   };
     // },
   },

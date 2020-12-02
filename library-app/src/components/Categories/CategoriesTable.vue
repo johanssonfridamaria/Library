@@ -13,6 +13,7 @@
         </thead>
         <tbody>
           <categoryItem
+            :errorMessage="errorMessage"
             v-for="category in categories"
             :key="category.id"
             :category="category"
@@ -33,7 +34,7 @@ import CategoryItem from './CategoryItem';
 
 export default {
   name: 'CategoriesTable',
-  props: ['categories', 'edit'],
+  props: ['categories', 'edit', 'errorMessage'],
   components: {
     CategoryItem,
   },

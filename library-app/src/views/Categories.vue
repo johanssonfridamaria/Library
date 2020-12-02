@@ -24,6 +24,7 @@
     <div class="col-12">
       <h2 class="text-left mb-4">Added categories</h2>
       <categoriesTable
+        :errorMessage="errorMessage"
         :categories="categories"
         @delete-category="delCategory"
         :edit="edit"
@@ -74,17 +75,21 @@ export default {
       })
         .then(response => response.json())
         .then(this.handleErrors)
+        // .then(data => console.log(data))
+        // this.fetchNoOfLibraryItemsinCategory(data._id)
         .then(() => this.fetchCategories());
     },
     delCategory(id) {
+      console.log('id' + id);
       fetch(this.apiURI + `/${id}`, {
         method: 'DELETE',
       })
         .then(response => response.json())
+        .then(this.handleErrors)
         .then(() => this.fetchCategories());
     },
     handleErrors(res) {
-      if (res.statusCode !== 201 || res.statusCode !== 200) {
+      if (res.statusCode !== 200 && res.statusCode !== 201) {
         this.errorMessage = res.message;
       }
       return res;
@@ -96,6 +101,7 @@ export default {
   },
   created() {
     this.fetchCategories();
+    // this.fetchNoOfLibraryItemsinCategory();
   },
   mounted() {
     EventBus.$on('editCategory', (category, newEdit) => {

@@ -2,7 +2,7 @@
   <tr class="align-items-center">
     <th scope="row">{{ category._id }}</th>
     <td>{{ category.name }}</td>
-    <td>{{ category.numberOfLibraryItems }}</td>
+    <td>{{ libraryItemsinCat.length }}</td>
     <td><button class="btn btn-primary" @click="editCategory">Edit</button></td>
     <td>
       <button
@@ -11,6 +11,7 @@
       >
         Remove
       </button>
+      <p v-if="errorMessage !== ''">{{ this.errorMessage }}</p>
     </td>
   </tr>
 </template>
@@ -20,10 +21,12 @@ import EventBus from '../../event-bus';
 
 export default {
   name: 'CategoryItem',
-  props: ['category', 'edit'],
+  props: ['category', 'edit', 'errorMessage'],
   data() {
     return {
       newEdit: this.error,
+      libraryItemsinCat: [],
+      apiURI: 'http://localhost:8000/api/categories',
     };
   },
   methods: {
@@ -31,6 +34,18 @@ export default {
       this.newEdit = true;
       EventBus.$emit('editCategory', this.category, this.newEdit);
     },
+    fetchNoOfLibraryItemsinCategory(id) {
+      fetch(this.apiURI + `/${id}/libraryItems`, {
+        method: 'GET',
+      })
+        .then(response => response.json())
+        .then(data => {
+          this.libraryItemsinCat = data;
+        });
+    },
+  },
+  mounted() {
+    this.fetchNoOfLibraryItemsinCategory(this.category._id);
   },
 };
 </script>
