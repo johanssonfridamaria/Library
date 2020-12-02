@@ -19,12 +19,6 @@ export default {
   name: 'LibraryItems',
   components: {
     LibraryTabs,
-    // data() {
-    //   return {
-    //     // libraryItems: [],
-    //     // apiURI: 'http://localhost:8000/api/libraryItems',
-    //   };
-    // },
   },
 };
 </script>

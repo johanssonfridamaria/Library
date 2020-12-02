@@ -78,9 +78,9 @@ export default {
         // .then(data => console.log(data))
         // this.fetchNoOfLibraryItemsinCategory(data._id)
         .then(() => this.fetchCategories());
+      EventBus.$emit('addCategory', this.categories);
     },
     delCategory(id) {
-      console.log('id' + id);
       fetch(this.apiURI + `/${id}`, {
         method: 'DELETE',
       })
@@ -101,7 +101,6 @@ export default {
   },
   created() {
     this.fetchCategories();
-    // this.fetchNoOfLibraryItemsinCategory();
   },
   mounted() {
     EventBus.$on('editCategory', (category, newEdit) => {

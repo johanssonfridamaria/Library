@@ -100,18 +100,16 @@ export default {
   name: 'AddBook',
   data() {
     return {
-      book: {
-        category: '',
-        title: '',
-        author: '',
-        pages: '',
-        type: '',
-        isBorrowable: '',
-      },
+      category: '',
+      title: '',
+      author: '',
+      pages: '',
+      runTimeMinutes: '',
+      isBorrowable: '',
+      type: '',
     };
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

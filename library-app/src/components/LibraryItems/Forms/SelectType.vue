@@ -1,16 +1,18 @@
 <template>
-  <div class="input-group">
-    <select
-      class="form-control custom-select"
-      v-model="select"
-      @change="$emit('select-type', select)"
-    >
-      <option selected>Choose...</option>
-      <option value="book">Book</option>
-      <option value="dvd">DVD</option>
-      <option value="audio-book">Audio Book</option>
-      <option value="ref-book">Reference Book</option>
-    </select>
+  <div class="form-row">
+    <div class="input-group col-md-4">
+      <select
+        class="form-control custom-select"
+        v-model="select"
+        @change="$emit('select-type', select)"
+      >
+        <option selected>Choose...</option>
+        <option value="book">Book</option>
+        <option value="dvd">DVD</option>
+        <option value="audio-book">Audio Book</option>
+        <option value="ref-book">Reference Book</option>
+      </select>
+    </div>
   </div>
 </template>
 
@@ -25,5 +27,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
