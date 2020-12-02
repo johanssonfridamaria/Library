@@ -11,8 +11,7 @@
     </div>
     <div class="mb-4 col-md-6">
       <h2 class="text-left mb-4">Edit Category</h2>
-      <!-- @update-category="updateCategory" -->
-      <editCategory :categories="categories" :errorMessage="errorMessage" />
+      <editCategory :errorMessage="errorMessage" :apiURI="apiURI" />
     </div>
     <div class="col-12">
       <h2 class="text-left mb-4">Added categories</h2>
@@ -66,20 +65,6 @@ export default {
         .then(this.handleErrors)
         .then(() => this.fetchCategories());
     },
-    // updateCategory(id) {
-    //   fetch(this.apiURI + `${id}`, {
-    //     method: 'PATCH',
-    //     headers: {
-    //       'Content-type': 'application/json; charset=UTF-8',
-    //     },
-    //     body: JSON.stringify({
-    //       name: id.name,
-    //     }),
-    //   })
-    //     .then(response => response.json())
-    //     .then(this.handleErrors)
-    //     .then(() => this.fetchCategories());
-    // },
     delCategory(id) {
       fetch(this.apiURI + `/${id}`, {
         method: 'DELETE',

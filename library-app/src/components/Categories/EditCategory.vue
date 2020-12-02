@@ -1,6 +1,5 @@
 <template>
-  <!-- @submit.prevent="updateCategory" -->
-  <form>
+  <form @submit.prevent="updateCategory">
     <div class="form-row text-left">
       <label for="newName">Category name:</label>
       <div class="input-group">
@@ -22,7 +21,6 @@
           >The Category name must be atleast 3 characters long and has to be
           unique.</small
         >
-        <p>{{ this.newName }}</p>
       </div>
     </div>
   </form>
@@ -32,30 +30,40 @@
 import EventBus from '../../event-bus';
 export default {
   name: 'EditCategory',
-  props: ['errorMessage'],
+  props: ['errorMessage', 'apiURI'],
   data() {
     return {
       newName: '',
+      newId: '',
       error: false,
     };
   },
   methods: {
-    // updateCategory() {
-    //   if (this.name === '' || this.name.length < 3) {
-    //     this.error = true;
-    //   } else {
-    //     this.$emit('update-category', this.name);
-    //     (this.name = ''), (this.error = false);
-    //   }
-    // },
+    updateCategory() {
+      console.log(this.newId, this.newName, this.apiURI);
+      if (this.newName === '' || this.newName.length < 3) {
+        this.error = true;
+      } else {
+        fetch(this.apiURI + `/${this.newId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+          body: JSON.stringify({
+            name: this.newName,
+          }),
+        })
+          .then(response => response.json())
+          .then(this.handleErrors)
+          .then(() => this.fetchCategories());
+        (this.newName = ''), (this.error = false), (this.edit = false);
+      }
+    },
   },
   created() {
-    console.log('created');
-  },
-  mounted() {
-    EventBus.$on('editCategory', function (category) {
+    EventBus.$on('editCategory', category => {
       this.newName = category.name;
-      console.log(arguments);
+      this.newId = category._id;
     });
   },
 };
