@@ -31,15 +31,16 @@ exports.getOneLibraryItem = (req, res) => {
 exports.createLibraryItem = (req, res) => {
 
   const libraryItem = new LibraryItem({
-    _id: mongodb.Schema.Types.ObjectId,
+    _id: new mongodb.Types.ObjectId,
     categoryId: req.body.categoryId,
     title: req.body.title,
     author: req.body.author,
     pages: req.body.pages,
-    runTimeMinutes: req.body.runTimeMinutes,
-    isBorrowable: true,
+    runTimeMinutes: null,
+    isBorrowable: req.body.isBorrowable,
+    borrower: null,
+    borrowDate: null,
     type: req.body.type,
-
   });
 
   libraryItem.save()
@@ -50,11 +51,12 @@ exports.createLibraryItem = (req, res) => {
         message: 'LibraryItem created'
       });
     })
-    .catch(() => {
+    .catch(err => {
+      console.log(err)
       res.status(500).json({
         statusCode: 500,
         status: false,
-        message: 'Failed to create LibraryItem'
+        message: 'Failed to create LibraryItem'        
       });
     });
 };
