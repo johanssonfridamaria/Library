@@ -9,25 +9,43 @@
     <div v-if="this.type === 'book'" class="py-3 mb-4 col-md-12 m-auto">
       <h2 class="text-left mb-4">Add a new Book</h2>
       <keep-alive>
-        <addBook @add-item="addItem" :selType="type" />
+        <addBook :categories="categories" @add-item="addItem" :selType="type" />
       </keep-alive>
     </div>
-    <div v-else-if="this.type === 'dvd'" class="py-3 mb-4 col-md-8">
+    <div v-else-if="this.type === 'dvd'" class="py-3 mb-4 col-md-12 m-auto">
       <h2 class="text-left mb-4">Add a new DVD</h2>
       <keep-alive>
-        <addDVD />
+        <addMedia
+          :categories="categories"
+          @add-item="addItem"
+          :selType="type"
+        />
       </keep-alive>
     </div>
-    <div v-else-if="this.type === 'audio-book'" class="py-3 mb-4 col-md-8">
+    <div
+      v-else-if="this.type === 'audio-book'"
+      class="py-3 mb-4 col-md-12 m-auto"
+    >
       <h2 class="text-left mb-4">Add a new Audio Book</h2>
       <keep-alive>
-        <addAudioBook />
+        <addMedia
+          :categories="categories"
+          @add-item="addItem"
+          :selType="type"
+        />
       </keep-alive>
     </div>
-    <div v-else-if="this.type === 'ref-book'" class="py-3 mb-4 col-md-8">
+    <div
+      v-else-if="this.type === 'ref-book'"
+      class="py-3 mb-4 col-md-12 m-auto"
+    >
       <h2 class="text-left mb-4">Add a new Reference Book</h2>
       <keep-alive>
-        <addRefBook />
+        <addRefBook
+          :categories="categories"
+          @add-item="addItem"
+          :selType="type"
+        />
       </keep-alive>
     </div>
   </div>
@@ -36,8 +54,7 @@
 <script>
 import SelectType from '../../components/LibraryItems/Forms/SelectType.vue';
 import AddBook from '../../components/LibraryItems/Forms/AddBook.vue';
-import AddDVD from '../../components/LibraryItems/Forms/AddDVD.vue';
-import AddAudioBook from '../../components/LibraryItems/Forms/AddAudioBook';
+import AddMedia from '../../components/LibraryItems/Forms/AddMedia.vue';
 import AddRefBook from '../../components/LibraryItems/Forms/AddRefBook.vue';
 
 export default {
@@ -45,14 +62,15 @@ export default {
   components: {
     SelectType,
     AddBook,
-    AddDVD,
-    AddAudioBook,
+    AddMedia,
     AddRefBook,
   },
   data() {
     return {
       type: '',
-      apiURI: 'http://localhost:8000/api/libraryItems',
+      categories: [],
+      apiItemsURI: 'http://localhost:8000/api/libraryItems',
+      apiCatURI: 'http://localhost:8000/api/categories',
     };
   },
   methods: {
@@ -61,13 +79,13 @@ export default {
     },
     addItem(item) {
       console.log(item);
-      fetch(this.apiURI + '/new', {
+      fetch(this.apiItemsURI + '/new', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
         body: JSON.stringify({
-          categoryId: item.category.id,
+          categoryId: item.category,
           title: item.title,
           author: item.author,
           pages: item.pages,
@@ -79,9 +97,19 @@ export default {
         .then(response => response.json())
         // .then(this.handleErrors)
         .then(data => console.log(data));
-      // this.fetchNoOfLibraryItemsinCategory(data._id)
       // .then(() => this.fetchCategories());
     },
+    //Fetches categories from DB with api
+    fetchCategories() {
+      fetch(this.apiCatURI)
+        .then(response => response.json())
+        .then(categoriesInDb => {
+          this.categories = categoriesInDb;
+        });
+    },
+  },
+  created() {
+    this.fetchCategories();
   },
 };
 </script>

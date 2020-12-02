@@ -21,7 +21,7 @@
         <tbody>
           <libraryItem
             v-for="item in libraryItems"
-            :key="item.id"
+            :key="item._id"
             :item="item"
             @delete-item="delItem"
           />
@@ -36,13 +36,39 @@
 
 <script>
 import LibraryItem from '../../components/LibraryItems/LibraryItem';
-// import EventBus from '../../event-bus';
 
 export default {
   name: 'LibraryTable',
-  props: ['libraryItems'],
   components: {
     LibraryItem,
+  },
+  data() {
+    return {
+      libraryItems: [],
+      apiItemsURI: 'http://localhost:8000/api/libraryItems',
+      apiCatURI: 'http://localhost:8000/api/categories',
+    };
+  },
+  methods: {
+    //Fetches libraryItems from DB with api
+    fetchLibraryItems() {
+      fetch(this.apiItemsURI)
+        .then(response => response.json())
+        .then(libraryItemsInDb => {
+          this.libraryItems = libraryItemsInDb;
+        });
+    },
+
+    delItem(id) {
+      fetch(this.apiItemsURI + `/${id}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(() => this.fetchLibraryItems());
+    },
+  },
+  created() {
+    this.fetchLibraryItems();
   },
 };
 </script>

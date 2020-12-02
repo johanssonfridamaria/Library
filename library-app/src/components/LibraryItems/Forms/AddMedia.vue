@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-row">
-      <div class="col-md-4 mb-3">
+      <div class="col-md-6 mb-3">
         <label for="title">Title</label>
         <input
           type="text"
@@ -30,28 +30,13 @@
         />
         <div class="invalid-feedback">Please insert a valid title!</div>
       </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="author">Author</label>
-        <input
-          type="text"
-          class="form-control"
-          id="author"
-          v-model="item.author"
-          :class="{ 'is-invalid': error }"
-        />
-        <div class="invalid-feedback">Please insert a valid author!</div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="col-md-3 mb-3">
-        <label for="pages">Pages</label>
+      <div class="col-md-2 mb-3">
+        <label for="runTime">Run Time (min)</label>
         <input
           type="number"
           class="form-control"
-          id="pages"
-          v-model="item.pages"
+          id="runTime"
+          v-model="item.runTime"
           :class="{ 'is-invalid': error }"
         />
         <div class="invalid-feedback">Please provide a valid input.</div>
@@ -93,15 +78,14 @@
 
 <script>
 export default {
-  name: 'AddBook',
+  name: 'AddMedia',
   props: ['selType', 'categories'],
   data() {
     return {
       item: {
         category: '',
         title: '',
-        author: '',
-        pages: '',
+        runTime: '',
         isBorrowable: '',
         type: '',
       },
@@ -113,8 +97,7 @@ export default {
       if (
         this.item.category !== '' &&
         this.item.title !== '' &&
-        this.item.author !== '' &&
-        this.item.pages !== '' &&
+        this.item.runTime !== '' &&
         this.item.isBorrowable !== ''
       ) {
         this.item.type = this.selType;

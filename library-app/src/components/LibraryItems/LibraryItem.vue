@@ -20,16 +20,9 @@
 </template>
 
 <script>
-import Eventbus from '../../event-bus';
-
 export default {
   name: 'LibraryItem',
   props: ['item'],
-  methods: {
-    delItem() {
-      Eventbus.$emit('delete-item', this.item._id);
-    },
-  },
 };
 </script>
 
