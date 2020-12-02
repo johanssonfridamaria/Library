@@ -11,7 +11,12 @@
     </div>
     <div class="mb-4 col-md-6">
       <h2 class="text-left mb-4">Edit Category</h2>
-      <editCategory :errorMessage="errorMessage" :apiURI="apiURI" />
+      <editCategory
+        :errorMessage="errorMessage"
+        :apiURI="apiURI"
+        @update-table="updateTable"
+        @handle-errors="handleErrors"
+      />
     </div>
     <div class="col-12">
       <h2 class="text-left mb-4">Added categories</h2>
@@ -73,13 +78,15 @@ export default {
         .then(() => this.fetchCategories());
     },
     handleErrors(res) {
-      if (res.statusCode !== 201) {
+      if (res.statusCode !== 201 || res.statusCode !== 200) {
         this.errorMessage = res.message;
       }
       return res;
     },
+    updateTable() {
+      this.fetchCategories();
+    },
   },
-  //Fetches categories from DB when app starts
   created() {
     this.fetchCategories();
   },
