@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <h1 class="py-4 border-bottom text-left">Categories</h1>
-    <div v-if="!edit" class="py-5 mb-4 col-md-6">
+    <!-- v-if="!edit" -->
+    <div class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Add a new Category</h2>
       <addCategory
         @add-category="addCategory"
@@ -9,7 +10,8 @@
         :errorMessage="errorMessage"
       />
     </div>
-    <div v-if="edit" class="py-5 mb-4 col-md-6">
+    <!-- v-if="edit" -->
+    <div class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Edit Category</h2>
       <editCategory
         :errorMessage="errorMessage"
