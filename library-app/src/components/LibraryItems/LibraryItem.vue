@@ -10,7 +10,7 @@
     <td>{{ item.borrower }}</td>
     <td>{{ item.borrowDate }}</td>
     <td>{{ item.type }}</td>
-    <td><button class="btn btn-primary">Edit</button></td>
+    <td><button class="btn btn-primary" @click="editItem">Edit</button></td>
     <td>
       <button class="btn btn-danger" @click="$emit('delete-item', item._id)">
         Remove
@@ -20,9 +20,16 @@
 </template>
 
 <script>
+import EventBus from '../../event-bus';
+
 export default {
   name: 'LibraryItem',
   props: ['item'],
+  methods: {
+    editCategory() {
+      EventBus.$emit('editItem', this.item);
+    },
+  },
 };
 </script>
 
