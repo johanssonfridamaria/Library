@@ -1,5 +1,5 @@
 <template>
-  <tr :class="{ editRow: edit }" class="align-items-center">
+  <tr class="align-items-center">
     <th scope="row">{{ category._id }}</th>
     <td>{{ category.name }}</td>
     <td>{{ category.numberOfLibraryItems }}</td>
@@ -17,26 +17,23 @@
 
 <script>
 import EventBus from '../../event-bus';
+
 export default {
   name: 'CategoryItem',
   props: ['category'],
   data() {
-    return {
-      edit: false,
-    };
+    return {};
   },
   methods: {
     editCategory() {
-      this.edit = true;
       EventBus.$emit('editCategory', this.category);
-      console.log(this.category);
     },
   },
 };
 </script>
 
 <style>
-.editRow {
+/* .editRow {
   background-color: rgba(0, 0, 0, 0.075);
-}
+} */
 </style>
