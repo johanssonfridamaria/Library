@@ -11,7 +11,7 @@
           :class="{ 'is-invalid': error || errorMessage !== '' }"
         />
         <div class="input-group-append">
-          <button class="btn btn-dark">Save</button>
+          <button class="btn btn-dark">Update</button>
         </div>
       </div>
       <div class="input-group">
@@ -28,6 +28,7 @@
 
 <script>
 import EventBus from '../../event-bus';
+
 export default {
   name: 'EditCategory',
   props: ['errorMessage', 'apiURI'],
@@ -54,9 +55,9 @@ export default {
           }),
         })
           .then(response => response.json())
-          .then(this.handleErrors)
-          .then(() => this.fetchCategories());
-        (this.newName = ''), (this.error = false), (this.edit = false);
+          .then(response => this.$emit('handle-errors', response))
+          .then(data => this.$emit('update-table', data));
+        (this.newName = ''), (this.error = false);
       }
     },
   },
