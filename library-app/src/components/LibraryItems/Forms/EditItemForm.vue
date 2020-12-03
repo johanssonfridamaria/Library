@@ -1,15 +1,9 @@
 <template>
-<template>
-  <form @submit.prevent="addBook">
+  <form @submit.prevent="uppdateItem">
     <div class="form-row">
       <div class="col-md-3 mb-3">
         <label for="category">Category</label>
-        <select
-          class="custom-select"
-          id="category"
-          v-model="item.category"
-        >
-          <!-- :class="{ 'is-invalid': error }" -->
+        <select class="custom-select" id="category" v-model="copyItem.category">
           <option value="" disabled="" selected="">Choose...</option>
           <option v-for="category in this.categories" :key="category._id">
             {{ category.name }}
@@ -26,35 +20,42 @@
           type="text"
           class="form-control"
           id="title"
-          v-model="item.title"
+          v-model="copyItem.title"
         />
-          <!-- :class="{ 'is-invalid': error }" -->
         <div class="invalid-feedback">Please insert a valid title!</div>
       </div>
 
-      <div class="col-md-4 mb-3">
+      <div v-if="hide" class="col-md-4 mb-3">
         <label for="author">Author</label>
         <input
           type="text"
           class="form-control"
           id="author"
-          v-model="item.author"
+          v-model="copyItem.author"
         />
-          <!-- :class="{ 'is-invalid': error }" -->
         <div class="invalid-feedback">Please insert a valid author!</div>
       </div>
     </div>
 
-    <div class="form-row">
+    <div v-if="hide" class="form-row">
       <div class="col-md-3 mb-3">
         <label for="pages">Pages</label>
         <input
           type="number"
           class="form-control"
           id="pages"
-          v-model="item.pages"
+          v-model="copyItem.pages"
         />
-          <!-- :class="{ 'is-invalid': error }" -->
+        <div class="invalid-feedback">Please provide a valid input.</div>
+      </div>
+      <div v-if="hideRunTime" class="col-md-2 mb-3">
+        <label for="runTime">Run Time (min)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="runTime"
+          v-model="copyItem.runTime"
+        />
         <div class="invalid-feedback">Please provide a valid input.</div>
       </div>
     </div>
@@ -67,7 +68,7 @@
           id="borrowable"
           name="isBorrowable"
           class="custom-control-input"
-          v-model="item.isBorrowable"
+          v-model="copyItem.isBorrowable"
           value="true"
         />
         <label class="custom-control-label" for="borrowable">Yes</label>
@@ -78,7 +79,7 @@
           id="notBorrowable"
           name="isBorrowable"
           class="custom-control-input"
-          v-model="item.isBorrowable"
+          v-model="copyItem.isBorrowable"
           value="false"
           required
         />
@@ -88,29 +89,25 @@
         Please select if the item is borrowable!
       </div>
     </div>
-    <button class="btn btn-dark py-2 px-4" type="submit">ADD</button>
+    <button class="btn btn-dark py-2 px-4" type="submit">UPDATE</button>
   </form>
 </template>
 
 <script>
 export default {
-  name: 'EditBook',
-  // props: ['selType', 'categories'],
+  name: 'EditItemForm',
+  props: ['type', 'categories', 'item'],
   data() {
     return {
-      item: {
-        category: '',
-        title: '',
-        author: '',
-        pages: '',
-        isBorrowable: '',
-        type: '',
-      },
+      copyItem: this.item,
+      copyType: this.item.type,
+      hide: '',
+      hideRunTime:''
       // error: false,
     };
   },
   methods: {
-    addBook(e) {
+    uppdateItem(e) {
       if (
         this.item.category !== '' &&
         this.item.title !== '' &&
@@ -118,9 +115,9 @@ export default {
         this.item.pages !== '' &&
         this.item.isBorrowable !== ''
       ) {
-        this.item.type = this.selType;
+        this.item.type = this.type;
         this.category_id(this.categories);
-        this.$emit('add-item', this.item);
+        this.$emit('update-item', this.item);
         e.target.forEach(i => i.classList.remove('is-invalid'));
       } else {
         e.target.forEach(input => {
@@ -136,9 +133,20 @@ export default {
       categories.forEach(category => (this.item.category = category._id));
       return this.item.category;
     },
+    },  created() {
+      if(this.item.type === 'book' && 'ref-book'){
+        this.hideRunTime = true;
+      } else if (this.item.type === 'audio-book' && 'dvd'){
+        this.hide= true;
+      }
+      
+      
+      // EventBus.$on('editItem', item => {
+      //   this.newItem = item;
+      //   // this.newId = category._id;
+      // });
   },
 };
 </script>
 
 <style></style>
-</template>
