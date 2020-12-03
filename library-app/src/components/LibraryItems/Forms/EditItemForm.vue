@@ -1,9 +1,16 @@
 <template>
   <form @submit.prevent="uppdateItem">
+    <div class="mb-3">
+      {{ this.statusMessage }}
+    </div>
     <div class="form-row">
       <div class="col-md-3 mb-3">
         <label for="category">Category</label>
-        <select class="custom-select" id="category" v-model="copyItem.category">
+        <select
+          class="custom-select"
+          id="category"
+          v-model="copyItem.categoryId"
+        >
           <option value="" disabled="" selected="">Choose...</option>
           <option v-for="category in this.categories" :key="category._id">
             {{ category.name }}
@@ -25,7 +32,7 @@
         <div class="invalid-feedback">Please insert a valid title!</div>
       </div>
 
-      <div v-if="hide" class="col-md-4 mb-3">
+      <div v-if="show" class="col-md-4 mb-3">
         <label for="author">Author</label>
         <input
           type="text"
@@ -37,8 +44,8 @@
       </div>
     </div>
 
-    <div v-if="hide" class="form-row">
-      <div class="col-md-3 mb-3">
+    <div class="form-row">
+      <div v-if="show" class="col-md-3 mb-3">
         <label for="pages">Pages</label>
         <input
           type="number"
@@ -48,7 +55,7 @@
         />
         <div class="invalid-feedback">Please provide a valid input.</div>
       </div>
-      <div v-if="hideRunTime" class="col-md-2 mb-3">
+      <div v-if="showRunTime" class="col-md-2 mb-3">
         <label for="runTime">Run Time (min)</label>
         <input
           type="number"
@@ -60,7 +67,7 @@
       </div>
     </div>
 
-    <div class="form-group mb-5">
+    <div v-if="showBorrow" class="form-group mb-3">
       <label>Borrowable</label>
       <div class="custom-control custom-radio">
         <input
@@ -96,28 +103,27 @@
 <script>
 export default {
   name: 'EditItemForm',
-  props: ['type', 'categories', 'item'],
+  props: ['type', 'categories', 'item', 'statusMessage'],
   data() {
     return {
       copyItem: this.item,
-      copyType: this.item.type,
-      hide: '',
-      hideRunTime:''
+      show: true,
+      showRunTime: true,
+      showBorrow: true,
       // error: false,
     };
   },
   methods: {
     uppdateItem(e) {
       if (
-        this.item.category !== '' &&
-        this.item.title !== '' &&
-        this.item.author !== '' &&
-        this.item.pages !== '' &&
-        this.item.isBorrowable !== ''
+        this.copyItem.categoryId !== '' &&
+        this.copyItem.title !== '' &&
+        this.copyItem.author !== '' &&
+        this.copyItem.pages !== '' &&
+        this.copyItem.isBorrowable !== ''
       ) {
-        this.item.type = this.type;
         this.category_id(this.categories);
-        this.$emit('update-item', this.item);
+        this.$emit('update-item', this.copyItem);
         e.target.forEach(i => i.classList.remove('is-invalid'));
       } else {
         e.target.forEach(input => {
@@ -130,21 +136,19 @@ export default {
       }
     },
     category_id(categories) {
-      categories.forEach(category => (this.item.category = category._id));
-      return this.item.category;
+      categories.forEach(category => (this.copyItem.categoryId = category._id));
+      return this.copyItem.categoryId;
     },
-    },  created() {
-      if(this.item.type === 'book' && 'ref-book'){
-        this.hideRunTime = true;
-      } else if (this.item.type === 'audio-book' && 'dvd'){
-        this.hide= true;
-      }
-      
-      
-      // EventBus.$on('editItem', item => {
-      //   this.newItem = item;
-      //   // this.newId = category._id;
-      // });
+  },
+  created() {
+    if (this.item.type === 'book') {
+      this.showRunTime = false;
+    } else if (this.item.type === 'ref-book') {
+      this.showBorrow = false;
+      this.showRunTime = false;
+    } else if (this.item.type === 'audio-book' && 'dvd') {
+      this.show = false;
+    }
   },
 };
 </script>

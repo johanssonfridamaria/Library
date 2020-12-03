@@ -1,21 +1,10 @@
 <template>
   <tr class="align-items-center">
-    <th scope="row">{{ item._id }}</th>
-    <td>{{ item.categoryId }}</td>
-    <td>{{ item.title }}</td>
-    <td>{{ item.author }}</td>
-    <td>{{ item.pages }}</td>
-    <td>{{ item.runTimeMinutes }}</td>
-    <td>{{ item.isBorrowable }}</td>
-    <td>{{ item.borrower }}</td>
-    <td>{{ item.borrowDate }}</td>
-    <td>{{ item.type }}</td>
     <td>
       <router-link
-        :to="{ name: 'EditItem' }"
+        :to="{ name: 'EditItem', params:{ item: this.item} }"
         exact
         class="btn btn-primary"
-        @click="EventBus.$emit('edit-item', this.item)"
       >
         Edit
       </router-link>
@@ -25,6 +14,16 @@
         Remove
       </button>
     </td>
+    <th scope="row">{{ item._id }}</th>
+    <td>{{ item.type }}</td>
+    <td>{{ item.category.name }}</td>
+    <td>{{ item.title }}</td>
+    <td>{{ item.author }}</td>
+    <td>{{ item.pages }}</td>
+    <td>{{ item.runTimeMinutes }}</td>
+    <td>{{ item.isBorrowable }}</td>
+    <td>{{ item.borrower }}</td>
+    <td>{{ item.borrowDate }}</td>
   </tr>
 </template>
 
@@ -35,10 +34,13 @@ export default {
   name: 'LibraryItem',
   props: ['item'],
   methods: {
-    editCategory() {
-      EventBus.$emit('editItem', this.item);
+    editItem() {
+      EventBus.$emit('edit-item', this.item);
     },
   },
+  created(){
+    console.log(this.item);
+  }
 };
 </script>
 

@@ -1,12 +1,17 @@
 <template>
   <div>
-    <div class="mb-5">
-    <h2 class="text-left mb-4">Edit Library Item</h2>
-    <p>It's not possible to change the type of the Item.</p>
+    <div class="mb-3">
+      <h2 class="text-left mb-4">Edit Library Item</h2>
+      <p>Pls note that it's not possible to change the type of the Item.</p>
     </div>
     <div>
       <keep-alive>
-        <editItemForm :categories="categories" @update-item="updateItem" :item="item"/>
+        <editItemForm
+          :statusMessage="statusMessage"
+          :categories="categories"
+          @update-item="updateItem"
+          :item="item"
+        />
       </keep-alive>
     </div>
   </div>
@@ -18,7 +23,7 @@ import EditItemForm from '../../components/LibraryItems/Forms/EditItemForm';
 
 export default {
   name: 'EditItem',
-  props:['item'],
+  props: ['item'],
   components: {
     EditItemForm,
   },
@@ -28,33 +33,31 @@ export default {
       categories: [],
       apiItemsURI: 'http://localhost:8000/api/libraryItems',
       apiCatURI: 'http://localhost:8000/api/categories',
+      statusMessage: '',
     };
   },
   methods: {
-    // selectType(value) {
-    //   this.type = value;
-    // },
-    updateItem(item) {
-      console.log(item);
-      fetch(this.apiItemsURI + '/new', {
+    updateItem(input) {
+      fetch(this.apiItemsURI + `/${input._id}`, {
         method: 'PATCH',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
         body: JSON.stringify({
-          categoryId: item.category,
-          title: item.title,
-          author: item.author,
-          pages: item.pages,
-          runTimeMinutes: item.runTimeMinutes,
-          isBorrowable: item.isBorrowable,
-          type: item.type,
+          categoryId: input.categoryId,
+          title: input.title,
+          author: input.author,
+          pages: input.pages,
+          runTimeMinutes: input.runTimeMinutes,
+          isBorrowable: input.isBorrowable,
+          type: input.type,
         }),
       })
         .then(response => response.json())
-        // .then(this.handleErrors)
-        .then(data => console.log(data));
-      // .then(() => this.fetchCategories());
+        .then(response => this.handleErrors(response));
+      // .then(data => console.log(data))
+      // .then(data => this.$emit('update-table', data));
+      // (this.newName = ''), (this.error = false);
     },
     //Fetches categories from DB with api
     fetchCategories() {
@@ -64,14 +67,20 @@ export default {
           this.categories = categoriesInDb;
         });
     },
+    handleErrors(res) {
+   if(res.statusCode === 200){
+     this.$router.push({name: 'LibraryTable'})
+   }
+      this.statusMessage = res.message;
+      return res;
+    },
   },
   created() {
     this.fetchCategories();
-    console.log(this.item)
-    // EventBus.$on('edit-item', item => {
-    //   console.log(item)
-    //   this.type = item.type;
-    // });
+    if(!this.item){
+     this.$router.push({name: 'LibraryTable'});
+    }
+
   },
 };
 </script>

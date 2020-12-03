@@ -11,6 +11,7 @@
             <th scope="col">Edit</th>
             <th scope="col">Remove</th>
             <th scope="col">Id</th>
+            <th scope="col">Type</th>
             <th scope="col">Category</th>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
@@ -19,7 +20,6 @@
             <th scope="col">Borrowable</th>
             <th scope="col">Borrower</th>
             <th scope="col">Borrow Date</th>
-            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
