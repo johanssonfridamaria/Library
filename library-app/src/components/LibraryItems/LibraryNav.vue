@@ -12,11 +12,6 @@
         </router-link>
       </li>
       <li class="nav-item">
-        <router-link :to="{ name: 'EditItem' }" exact class="nav-link">
-          Edit Library Item
-        </router-link>
-      </li>
-      <li class="nav-item">
         <router-link :to="{ name: 'LendItem' }" exact class="nav-link">
           Check in/Check out Library item
         </router-link>
@@ -27,7 +22,7 @@
 
 <script>
 export default {
-  name: 'LibraryTabs',
+  name: 'LibraryNav',
 };
 </script>
 
