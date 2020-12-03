@@ -10,7 +10,16 @@
     <td>{{ item.borrower }}</td>
     <td>{{ item.borrowDate }}</td>
     <td>{{ item.type }}</td>
-    <td><button class="btn btn-primary" @click="editItem">Edit</button></td>
+    <td>
+      <router-link
+        :to="{ name: 'EditItem' }"
+        exact
+        class="btn btn-primary"
+        @click="EventBus.$emit('edit-item', this.item)"
+      >
+        Edit
+      </router-link>
+    </td>
     <td>
       <button class="btn btn-danger" @click="$emit('delete-item', item._id)">
         Remove
