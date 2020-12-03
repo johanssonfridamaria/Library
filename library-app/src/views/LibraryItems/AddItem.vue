@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pt-3 mb-3 col-md-8">
+    <div class="mb-3 col-md-8">
       <h5 class="mb-4">Please select what type of Item you want to add</h5>
       <keep-alive>
         <selectType @select-type="selectType" />

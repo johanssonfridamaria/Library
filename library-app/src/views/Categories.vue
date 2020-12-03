@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <h1 class="py-4 border-bottom text-left">Categories</h1>
-
     <div v-if="!edit" class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Add a new Category</h2>
       <addCategory
@@ -23,7 +22,10 @@
       />
     </div>
     <div class="col-12">
-      <h2 class="text-left mb-4">Added categories</h2>
+      <div class="mb-4">
+      <h2 class="text-left mb-4">Added Categories</h2>
+        <p>Pls note that you can only delete a Category that doesn't contain any Library Items.</p>
+      </div>
       <categoriesTable
         :errorMessage="errorMessage"
         :categories="categories"

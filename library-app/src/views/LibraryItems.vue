@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <h1 class="py-4 border-bottom text-left">Library Items</h1>
-    <div class="py-5 row">
-      <div class="col-md-3 bg-light">
+    <div class="py-3">
+      <div class="">
         <libraryNav />
       </div>
-      <div class="col-md-9">
+      <div class="mt-5 container">
         <router-view />
       </div>
     </div>

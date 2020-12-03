@@ -6,7 +6,7 @@
         v-model="select"
         @change="$emit('select-type', select)"
       >
-        <option selected>Choose...</option>
+        <option value="" disabled="" selected="">Choose...</option>
         <option value="book">Book</option>
         <option value="dvd">DVD</option>
         <option value="audio-book">Audio Book</option>

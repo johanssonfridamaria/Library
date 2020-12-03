@@ -36,7 +36,7 @@
           type="number"
           class="form-control"
           id="runTime"
-          v-model="item.runTime"
+          v-model="item.runTimeMinutes"
           :class="{ 'is-invalid': error }"
         />
         <div class="invalid-feedback">Please provide a valid input.</div>
@@ -85,7 +85,7 @@ export default {
       item: {
         category: '',
         title: '',
-        runTime: '',
+        runTimeMinutes: '',
         isBorrowable: '',
         type: '',
       },
@@ -97,7 +97,7 @@ export default {
       if (
         this.item.category !== '' &&
         this.item.title !== '' &&
-        this.item.runTime !== '' &&
+        this.item.runTimeMinutes !== '' &&
         this.item.isBorrowable !== ''
       ) {
         this.item.type = this.selType;
