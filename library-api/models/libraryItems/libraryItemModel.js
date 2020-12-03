@@ -50,7 +50,7 @@ exports.createLibraryItem = (req, res) => {
 
   const libraryItem = new LibraryItem({
     _id: new mongodb.Types.ObjectId,
-    categoryId: req.body.categoryId,
+    // categoryId: req.body.categoryId,
     category: req.body.categoryId,
     title: req.body.title,
     author: req.body.author,
