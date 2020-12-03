@@ -1,110 +1,102 @@
 <template>
-  <form @submit.prevent="UpdateItem">
-    <div class="form-row">
-      <div class="col-md-3 mb-3">
-        <label for="category">Category</label>
-        <select
-          class="custom-select"
-          id="category"
-          :class="{ 'is-invalid': error }"
-          v-model="item.category"
-        >
-          <option value="" disabled="" selected="">Choose...</option>
-          <option v-for="category in this.categories" :key="category._id">
-            {{ category.name }}
-          </option>
-        </select>
-        <p class="invalid-feedback">Please choose a Category</p>
-      </div>
+  <div>
+    <div v-if="this.type === 'book'" class="py-3 mb-4 col-md-12 m-auto">
+      <h2 class="text-left mb-4">Add a new Book</h2>
+      <keep-alive>
+        <editBook
+          :categories="categories"
+          @update-item="updateItem"
+        />
+      </keep-alive>
     </div>
-
-    <div class="form-row">
-      <div class="col-md-4 mb-3">
-        <label for="title">Title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          v-model="item.title"
-          :class="{ 'is-invalid': error }"
+    <div v-else-if="this.type === 'dvd'" class="py-3 mb-4 col-md-12 m-auto">
+      <h2 class="text-left mb-4">Add a new DVD</h2>
+      <keep-alive>
+        <editMedia
+          :categories="categories"
+          @update-item="updateItem"
         />
-        <div class="invalid-feedback">Please insert a valid title!</div>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="author">Author</label>
-        <input
-          type="text"
-          class="form-control"
-          id="author"
-          v-model="item.author"
-          :class="{ 'is-invalid': error }"
-        />
-        <div class="invalid-feedback">Please insert a valid author!</div>
-      </div>
+      </keep-alive>
     </div>
-
-    <div class="form-row">
-      <div class="col-md-3 mb-3">
-        <label for="pages">Pages</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          v-model="item.pages"
-          :class="{ 'is-invalid': error }"
+    <div
+      v-else-if="this.type === 'audio-book'"
+      class="py-3 mb-4 col-md-12 m-auto"
+    >
+      <h2 class="text-left mb-4">Add a new Audio Book</h2>
+      <keep-alive>
+        <editMedia
+          :categories="categories"
+          @update-item="updateItem"
         />
-        <div class="invalid-feedback">Please provide a valid input.</div>
-      </div>
+      </keep-alive>
     </div>
-
-    <div class="form-group mb-5">
-      <label>Borrowable</label>
-      <div class="custom-control custom-radio">
-        <input
-          type="radio"
-          id="borrowable"
-          name="isBorrowable"
-          class="custom-control-input"
-          v-model="item.isBorrowable"
-          value="true"
+    <div
+      v-else-if="this.type === 'ref-book'"
+      class="py-3 mb-4 col-md-12 m-auto"
+    >
+      <h2 class="text-left mb-4">Add a new Reference Book</h2>
+      <keep-alive>
+        <editRefBook
+          :categories="categories"
+          @update-item="updateItem"
         />
-        <label class="custom-control-label" for="borrowable">Yes</label>
-      </div>
-      <div class="custom-control custom-radio">
-        <input
-          type="radio"
-          id="notBorrowable"
-          name="isBorrowable"
-          class="custom-control-input"
-          v-model="item.isBorrowable"
-          value="false"
-          required
-        />
-        <label class="custom-control-label" for="notBorrowable">No</label>
-      </div>
-      <div class="invalid-feedback">
-        Please select if the item is borrowable!
-      </div>
+      </keep-alive>
     </div>
-    <button class="btn btn-dark py-2 px-4" type="submit">ADD</button>
-  </form>
+  </div>
 </template>
 
 <script>
 import EventBus from '../../event-bus';
+import EditBook from '../../components/LibraryItems/Forms/EditBook';
+// import EditBook from '../../components/LibraryItems/Forms/Edit';
 
 export default {
   name: 'EditItem',
+  components: {},
   data() {
     return {
-      newItem: {},
+      type: '',
+      categories: [],
+      apiItemsURI: 'http://localhost:8000/api/libraryItems',
+      apiCatURI: 'http://localhost:8000/api/categories',
     };
   },
+  methods: {
+    // updateItem(item) {
+    //   console.log(item);
+    //   fetch(this.apiItemsURI + '/new', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: JSON.stringify({
+    //       categoryId: item.category,
+    //       title: item.title,
+    //       author: item.author,
+    //       pages: item.pages,
+    //       runTimeMinutes: item.runTimeMinutes,
+    //       isBorrowable: item.isBorrowable,
+    //       type: item.type,
+    //     }),
+    //   })
+    //     .then(response => response.json())
+    //     // .then(this.handleErrors)
+    //     .then(data => console.log(data));
+    //   // .then(() => this.fetchCategories());
+    // },
+    //Fetches categories from DB with api
+    fetchCategories() {
+      fetch(this.apiCatURI)
+        .then(response => response.json())
+        .then(categoriesInDb => {
+          this.categories = categoriesInDb;
+        });
+    },
+  },
   created() {
+    this.fetchCategories();
     EventBus.$on('editItem', item => {
-      this.newItem = item;
-      // this.newId = category._id;
+      this.type = item.type;
     });
   },
 };
