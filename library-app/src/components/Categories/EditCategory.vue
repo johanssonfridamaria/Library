@@ -1,29 +1,39 @@
 <template>
-  <form @submit.prevent="updateCategory">
-    <div class="form-row text-left">
-      <label for="newName">Category name:</label>
-      <div class="input-group">
-        <input
-          class="form-control"
-          type="text"
-          id="newName"
-          v-model="newName"
-          :class="{ 'is-invalid': error || errorMessage !== '' }"
-        />
-        <div class="input-group-append">
-          <button class="btn btn-dark">Update</button>
+  <div>
+    <form @submit.prevent="updateCategory">
+      <div class="form-row text-left">
+        <label for="newName">Category name:</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="text"
+            id="newName"
+            v-model="newName"
+            :class="{ 'is-invalid': error || errorMessage !== '' }"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-dark">Update</button>
+          </div>
+        </div>
+        <div class="input-group">
+          <div v-if="error">Please insert valid input!</div>
+          <div v-if="errorMessage !== ''">{{ this.errorMessage }}</div>
+          <small class="form-text text-muted"
+            >The Category name must be atleast 3 characters long and has to be
+            unique.</small
+          >
         </div>
       </div>
-      <div class="input-group">
-        <div v-if="error">Please insert valid input!</div>
-        <div v-if="errorMessage !== ''">{{ this.errorMessage }}</div>
-        <small class="form-text text-muted"
-          >The Category name must be atleast 3 characters long and has to be
-          unique.</small
-        >
-      </div>
+    </form>
+    <div class="mt-4">
+      <button class="btn btn-dark"
+        :class="{ active: newEdit }"
+        @click="editChange"
+      >
+        Go back to Add
+      </button>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
@@ -37,6 +47,7 @@ export default {
       newName: '',
       newId: '',
       error: false,
+      newEdit: this.edit,
     };
   },
   methods: {
@@ -59,6 +70,10 @@ export default {
         (this.newName = ''), (this.error = false);
       }
     },
+    editChange(){
+      this.newEdit = !this.newEdit; 
+      this.$emit('edit-change', this.newEdit);
+    }
   },
   created() {
     EventBus.$on('editCategory', category => {
