@@ -47,7 +47,7 @@ exports.createLibraryItem = (req, res) => {
     title: req.body.title,
     author: req.body.author,
     pages: req.body.pages,
-    runTimeMinutes: null,
+    runTimeMinutes: req.body.runTimeMinutes,
     isBorrowable: req.body.isBorrowable,
     borrower: null,
     borrowDate: null,
