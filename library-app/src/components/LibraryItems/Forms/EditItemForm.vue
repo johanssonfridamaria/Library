@@ -9,10 +9,10 @@
         <select
           class="custom-select"
           id="category"
-          v-model="copyItem.category._Id"
+          v-model="copyItem.category._id"
         >
-          <option value="" disabled="" selected="">Choose...</option>
-          <option v-for="category in this.categories" :key="category._id">
+          <!-- <option value="" disabled="" selected="">Choose...</option> -->
+          <option v-for="category in this.categories" :key="category._id" :value="category._id">
             {{ category.name }}
           </option>
         </select>
@@ -56,12 +56,12 @@
         <div class="invalid-feedback">Please provide a valid input.</div>
       </div>
       <div v-if="showRunTime" class="col-md-2 mb-3">
-        <label for="runTime">Run Time (min)</label>
+        <label for="runTimeMinutes">Run Time (min)</label>
         <input
           type="number"
           class="form-control"
-          id="runTime"
-          v-model="copyItem.runTime"
+          id="runTimeMinutes"
+          v-model="copyItem.runTimeMinutes"
         />
         <div class="invalid-feedback">Please provide a valid input.</div>
       </div>
@@ -109,20 +109,20 @@ export default {
       copyItem: this.item,
       show: true,
       showRunTime: true,
-      showBorrow: true,
+      showBorrow: true
       // error: false,
     };
   },
   methods: {
     uppdateItem(e) {
       if (
-        this.copyItem.category._Id !== '' &&
+        this.copyItem.category._id !== '' &&
         this.copyItem.title !== '' &&
         this.copyItem.author !== '' &&
         this.copyItem.pages !== '' &&
         this.copyItem.isBorrowable !== ''
       ) {
-        this.category_id(this.categories);
+        // this.category_id(this.categories);
         this.$emit('update-item', this.copyItem);
         e.target.forEach(i => i.classList.remove('is-invalid'));
       } else {
@@ -134,11 +134,7 @@ export default {
           }
         });
       }
-    },
-    category_id(categories) {
-      categories.forEach(category => (this.copyItem.category._Id = category._id));
-      return this.copyItem.category._Id;
-    },
+    }
   },
   created() {
     if (this.item.type === 'book') {
@@ -146,7 +142,7 @@ export default {
     } else if (this.item.type === 'ref-book') {
       this.showBorrow = false;
       this.showRunTime = false;
-    } else if (this.item.type === 'audio-book' && 'dvd') {
+    } else if (this.item.type === 'audio-book' || this.item.type ===  'dvd') {
       this.show = false;
     }
   },

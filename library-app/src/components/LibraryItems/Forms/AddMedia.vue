@@ -29,11 +29,11 @@
         <div class="invalid-feedback">Please insert a valid title!</div>
       </div>
       <div class="col-md-2 mb-3">
-        <label for="runTime">Run Time (min)</label>
+        <label for="runTimeMinutes">Run Time (min)</label>
         <input
           type="number"
           class="form-control"
-          id="runTime"
+          id="runTimeMinutes"
           v-model="item.runTimeMinutes"
         />
         <div class="invalid-feedback">Please provide a valid input.</div>
