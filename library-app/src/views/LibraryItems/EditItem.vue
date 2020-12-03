@@ -95,7 +95,7 @@ export default {
   },
   created() {
     this.fetchCategories();
-    EventBus.$on('editItem', item => {
+    this.EventBus.$on('editItem', item => {
       this.type = item.type;
     });
   },
