@@ -43,6 +43,7 @@ const routes = [
         name: 'EditItem',
         component: () =>
           import(/* webpackChunkName: 'edit-library-item' */ '../views/LibraryItems/EditItem.vue'),
+          props:true,
       },
       {
         path: 'lend-library-item',
