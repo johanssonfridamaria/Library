@@ -9,7 +9,7 @@
         <select
           class="custom-select"
           id="category"
-          v-model="copyItem.categoryId"
+          v-model="copyItem.category._Id"
         >
           <option value="" disabled="" selected="">Choose...</option>
           <option v-for="category in this.categories" :key="category._id">
@@ -116,7 +116,7 @@ export default {
   methods: {
     uppdateItem(e) {
       if (
-        this.copyItem.categoryId !== '' &&
+        this.copyItem.category._Id !== '' &&
         this.copyItem.title !== '' &&
         this.copyItem.author !== '' &&
         this.copyItem.pages !== '' &&
@@ -136,8 +136,8 @@ export default {
       }
     },
     category_id(categories) {
-      categories.forEach(category => (this.copyItem.categoryId = category._id));
-      return this.copyItem.categoryId;
+      categories.forEach(category => (this.copyItem.category._Id = category._id));
+      return this.copyItem.category._Id;
     },
   },
   created() {

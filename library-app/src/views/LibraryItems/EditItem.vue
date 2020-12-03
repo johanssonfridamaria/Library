@@ -44,7 +44,7 @@ export default {
           'Content-type': 'application/json; charset=UTF-8',
         },
         body: JSON.stringify({
-          categoryId: input.categoryId,
+          category: input.category._Id,
           title: input.title,
           author: input.author,
           pages: input.pages,

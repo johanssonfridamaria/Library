@@ -16,7 +16,7 @@
     </td>
     <th scope="row">{{ item._id }}</th>
     <td>{{ item.type }}</td>
-    <td>{{ item.category.name }}</td>
+    <td>{{ item.category && item.category.name }}</td>
     <td>{{ item.title }}</td>
     <td>{{ item.author }}</td>
     <td>{{ item.pages }}</td>
@@ -38,9 +38,6 @@ export default {
       EventBus.$emit('edit-item', this.item);
     },
   },
-  created(){
-    console.log(this.item);
-  }
 };
 </script>
 

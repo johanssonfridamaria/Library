@@ -6,11 +6,10 @@
         <select
           class="custom-select"
           id="category"
-          :class="{ 'is-invalid': error }"
           v-model="item.category"
         >
           <option value="" disabled="" selected="">Choose...</option>
-          <option v-for="category in this.categories" :key="category._id">
+          <option v-for="category in this.categories" :key="category._id" :value="category._id">
             {{ category.name }}
           </option>
         </select>
@@ -26,7 +25,6 @@
           class="form-control"
           id="title"
           v-model="item.title"
-          :class="{ 'is-invalid': error }"
         />
         <div class="invalid-feedback">Please insert a valid title!</div>
       </div>
@@ -37,7 +35,6 @@
           class="form-control"
           id="runTime"
           v-model="item.runTimeMinutes"
-          :class="{ 'is-invalid': error }"
         />
         <div class="invalid-feedback">Please provide a valid input.</div>
       </div>
@@ -89,7 +86,6 @@ export default {
         isBorrowable: '',
         type: '',
       },
-      error: false,
     };
   },
   methods: {
@@ -101,7 +97,6 @@ export default {
         this.item.isBorrowable !== ''
       ) {
         this.item.type = this.selType;
-        this.category_id(this.categories);
         this.$emit('add-item', this.item);
         e.target.forEach(i => i.classList.remove('is-invalid'));
       } else {
@@ -113,11 +108,7 @@ export default {
           }
         });
       }
-    },
-    category_id(categories) {
-      categories.forEach(category => (this.item.category = category._id));
-      return this.item.category;
-    },
+    }
   },
 };
 </script>

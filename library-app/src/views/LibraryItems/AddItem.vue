@@ -78,14 +78,13 @@ export default {
       this.type = value;
     },
     addItem(item) {
-      console.log(item);
       fetch(this.apiItemsURI + '/new', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
         body: JSON.stringify({
-          categoryId: item.category,
+          category: item.category,
           title: item.title,
           author: item.author,
           pages: item.pages,
@@ -95,9 +94,12 @@ export default {
         }),
       })
         .then(response => response.json())
-        // .then(this.handleErrors)
-        .then(data => console.log(data));
-      // .then(() => this.fetchCategories());
+        .then(res => {
+          if (res.statusCode === 201) {
+            this.$router.push({ name: 'LibraryTable' });
+          }
+        })
+        .then(() => this.fetchCategories());
     },
     //Fetches categories from DB with api
     fetchCategories() {
