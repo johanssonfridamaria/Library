@@ -1,10 +1,17 @@
 //imports mongoose from node modules
 const mongodb = require('mongoose');
 const LibraryItem = require('./libraryItemSchema');
+const Category = require('../categories/categorySchema')
 
 //get all libraryItems
 exports.getLibraryItems = (req, res) => {
-  LibraryItem.find()
+  LibraryItem.find().populate('category')
+  // exec(function (err, item) {
+    
+  //   console.log(err);
+  //   console.log(item);
+  //   return item// prints "The author is Ian Fleming"
+  // })
     .then(data => res.status(200).json(data))
     .catch(err => res.status(500).json({
       statusCode: 500,
@@ -44,6 +51,7 @@ exports.createLibraryItem = (req, res) => {
   const libraryItem = new LibraryItem({
     _id: new mongodb.Types.ObjectId,
     categoryId: req.body.categoryId,
+    category: req.body.categoryId,
     title: req.body.title,
     author: req.body.author,
     pages: req.body.pages,
@@ -74,6 +82,7 @@ exports.createLibraryItem = (req, res) => {
 
 //update libraryItem
 exports.updateLibraryItem = (req, res) => {
+  
   LibraryItem.updateOne({ _id: req.params.id }, req.body)
   .then(() => {
       LibraryItem.updateOne({ _id: req.params.id }, { $set: {modified: Date.now()}})

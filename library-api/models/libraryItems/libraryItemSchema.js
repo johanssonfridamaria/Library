@@ -6,7 +6,8 @@ const ObjectId = mongodb.Schema.Types.ObjectId
 const libraryItemSchema = mongodb.Schema({
 
   _id: ObjectId,
-  categoryId: ObjectId,
+  // categoryId: ObjectId,
+  category: { type: ObjectId, ref: 'Category' },
   title: { type: String, required: true},
   author: { type: String,},
   pages: { type: Number,},
