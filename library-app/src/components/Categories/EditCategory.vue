@@ -9,15 +9,19 @@
             type="text"
             id="newName"
             v-model="newName"
-            :class="{ 'is-invalid': error || errorMessage !== '' }"
+            :class="{ 'is-invalid': error }"
           />
           <div class="input-group-append">
             <button class="btn btn-dark">Update</button>
           </div>
+          <div v-if="error" class="invalid-feedback">
+            {{ this.error }}
+          </div>
+          <div class="valid-feedback">
+            {{ this.success }}
+          </div>
         </div>
         <div class="input-group">
-          <div v-if="error">Please insert valid input!</div>
-          <div v-if="errorMessage !== ''">{{ this.errorMessage }}</div>
           <small class="form-text text-muted"
             >The Category name must be atleast 3 characters long and has to be
             unique.</small
@@ -26,7 +30,8 @@
       </div>
     </form>
     <div class="mt-4">
-      <button class="btn btn-dark"
+      <button
+        class="btn btn-dark"
         :class="{ active: newEdit }"
         @click="editChange"
       >
@@ -41,19 +46,20 @@ import EventBus from '../../event-bus';
 
 export default {
   name: 'EditCategory',
-  props: ['errorMessage', 'apiURI', 'edit'],
+  props: ['errorMessage', 'apiURI', 'edit', 'copyCategory'],
   data() {
     return {
-      newName: '',
-      newId: '',
-      error: false,
+      newName: this.copyCategory.name,
+      newId: this.copyCategory._id,
+      success: '',
+      error: '',
       newEdit: this.edit,
     };
   },
   methods: {
     updateCategory() {
       if (this.newName === '' || this.newName.length < 3) {
-        this.error = true;
+        this.error = 'Please insert a valid input!';
       } else {
         fetch(this.apiURI + `/${this.newId}`, {
           method: 'PATCH',
@@ -65,20 +71,31 @@ export default {
           }),
         })
           .then(response => response.json())
-          .then(response => this.$emit('handle-errors', response))
-          .then(data => this.$emit('update-table', data));
-        (this.newName = ''), (this.error = false);
+          .then(res => {
+            if (res.statusCode === 200) {
+              console.log(res)
+              EventBus.$emit('categoryUpdated', { ...this.copyCategory, name: this.newName });
+              this.success = res.message;
+              this.error = null;
+              this.newName = '';
+            } else {
+              this.error = res.message;
+            }
+          })
       }
     },
-    editChange(){
-      this.newEdit = !this.newEdit; 
-      this.$emit('edit-change', this.newEdit);
-    }
+    editChange() {
+      EventBus.$emit('editCategory', null, false);
+      // this.newEdit = !this.newEdit;
+      // this.$emit('edit-change', this.newEdit);
+    },
   },
   created() {
-    EventBus.$on('editCategory', category => {
-      this.newName = category.name;
-      this.newId = category._id;
+    EventBus.$on('editCategory', (category) => {
+      if (category) {
+        this.newName = category.name;
+        this.newId = category._id;
+      }
     });
   },
 };

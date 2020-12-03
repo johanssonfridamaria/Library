@@ -8,15 +8,19 @@
           type="text"
           id="name"
           v-model="name"
-          :class="{ 'is-invalid': error || errorMessage !== '' }"
+          :class="{ 'is-invalid': error }"
         />
         <div class="input-group-append">
           <button class="btn btn-dark">Add</button>
         </div>
+        <div v-if="error" class="invalid-feedback">
+          {{ this.error }}
+        </div>
+        <div class="valid-feedback">
+          {{ this.success }}
+        </div>
       </div>
       <div class="input-group">
-        <div v-if="error">Please insert valid input!</div>
-        <div v-if="errorMessage !== ''">{{ this.errorMessage }}</div>
         <small class="form-text text-muted"
           >The Category name must be atleast 3 characters long and has to be
           unique.</small
@@ -27,23 +31,51 @@
 </template>
 
 <script>
+import EventBus from '../../event-bus';
+
 export default {
   name: 'AddCategory',
   props: ['errorMessage'],
   data() {
     return {
       name: '',
-      error: false,
+      apiURI: 'http://localhost:8000/api/categories',
+      success: '',
+      error: '',
     };
   },
   methods: {
     addCategory() {
-      if (this.name === '' || this.name.length < 3) {
-        this.error = true;
-      } else {
-        this.$emit('add-category', this.name);
-        (this.name = ''), (this.error = false);
+      if (this.isValid()) {
+        fetch(this.apiURI + '/new', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+          body: JSON.stringify({
+            name: this.name,
+          }),
+        })
+          .then(response => response.json())
+          .then(res => {
+            if (res.statusCode === 201) {
+              EventBus.$emit('addCategory', res.data.category);
+              this.success = res.message;
+              this.error = null
+              this.name='';
+            } else {
+              this.error = res.message;
+            }
+          });
       }
+    },
+    isValid() {
+      if (this.name === '' || this.name.length < 3) {
+        this.error = 'Please insert valid input!'
+        return false
+      } 
+      return true;
+
     },
   },
 };

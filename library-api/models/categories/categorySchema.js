@@ -14,5 +14,6 @@ const categorySchema = mongodb.Schema({
 
 });
 
+
 //export file
 module.exports = mongodb.model('Category', categorySchema);

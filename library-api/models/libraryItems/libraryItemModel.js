@@ -6,12 +6,6 @@ const Category = require('../categories/categorySchema')
 //get all libraryItems
 exports.getLibraryItems = (req, res) => {
   LibraryItem.find().populate('category')
-  // exec(function (err, item) {
-    
-  //   console.log(err);
-  //   console.log(item);
-  //   return item// prints "The author is Ian Fleming"
-  // })
     .then(data => res.status(200).json(data))
     .catch(err => res.status(500).json({
       statusCode: 500,
@@ -23,7 +17,7 @@ exports.getLibraryItems = (req, res) => {
 
 //get one libraryItem
 exports.getOneLibraryItem = (req, res) => {
-  LibraryItem.findById(req.params.id)
+  LibraryItem.findById(req.params.id).populate('category')
     .then(data => res.status(200).json(data))
     .catch(err => res.status(500).json({
       statusCode: 500,
@@ -35,8 +29,10 @@ exports.getOneLibraryItem = (req, res) => {
 
 //get libraryItems with a specifik category id.
 exports.getLibraryItemsByCatId =(req,res)=> {
-  LibraryItem.find({categoryId: req.params.id})
-  .then(data => res.status(200).json(data))
+  LibraryItem.find({'category': req.params.id})
+  .then(data => { 
+    return  res.status(200).json(data)
+  })
   .catch(err => res.status(500).json({
     statusCode: 500,
     status: false,
@@ -50,8 +46,7 @@ exports.createLibraryItem = (req, res) => {
 
   const libraryItem = new LibraryItem({
     _id: new mongodb.Types.ObjectId,
-    // categoryId: req.body.categoryId,
-    category: req.body.categoryId,
+    category: req.body.category,
     title: req.body.title,
     author: req.body.author,
     pages: req.body.pages,
@@ -71,7 +66,6 @@ exports.createLibraryItem = (req, res) => {
       });
     })
     .catch(err => {
-      console.log(err)
       res.status(500).json({
         statusCode: 500,
         status: false,
@@ -82,7 +76,6 @@ exports.createLibraryItem = (req, res) => {
 
 //update libraryItem
 exports.updateLibraryItem = (req, res) => {
-  
   LibraryItem.updateOne({ _id: req.params.id }, req.body)
   .then(() => {
       LibraryItem.updateOne({ _id: req.params.id }, { $set: {modified: Date.now()}})

@@ -45,11 +45,14 @@ exports.createCategory = (req, res) => {
       });
 
       category.save()
-        .then(() => {
+        .then(category => {
           res.status(201).json({
             statusCode: 201,
             status: true,
-            message: 'Category created'
+            message: 'Category created',
+            data: {
+              category
+            }
           });
         })
         .catch(() => {
@@ -75,13 +78,16 @@ exports.updateCategory = (req, res) => {
       }
       else {
         Category.updateOne({ _id: req.params.id }, req.body)
-          .then(() => {
+          .then(category => {
             Category.updateOne({ _id: req.params.id }, { $set: { modified: Date.now() } })
               .then(() => {
                 res.status(200).json({
                   statusCode: 200,
                   status: true,
-                  message: 'Category updated'
+                  message: 'Category updated',
+                  data: {
+                    category
+                  }
                 })
               })
               .catch(() => {
@@ -98,7 +104,7 @@ exports.updateCategory = (req, res) => {
 
 //delete category
 exports.deleteCategory = (req, res) => {
-    LibraryItem.find({ categoryId: req.params.id })
+    LibraryItem.find({ category: req.params.id })
     .then(exists => {
       if (exists.length > 0) {
         return res.status(400).json({

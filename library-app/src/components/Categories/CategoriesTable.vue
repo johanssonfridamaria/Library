@@ -18,7 +18,6 @@
             :key="category.id"
             :category="category"
             :edit="edit"
-            @delete-category="$emit('delete-category', category._id)"
           />
         </tbody>
       </table>
@@ -38,6 +37,7 @@ export default {
   components: {
     CategoryItem,
   },
+
 };
 </script>
 

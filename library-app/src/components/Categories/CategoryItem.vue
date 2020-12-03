@@ -5,13 +5,8 @@
     <td>{{ libraryItemsinCat.length }}</td>
     <td><button class="btn btn-primary" @click="editCategory">Edit</button></td>
     <td>
-      <button
-        class="btn btn-danger"
-        @click="$emit('delete-category', category._id)"
-      >
-        Remove
-      </button>
-      <p v-if="errorMessage !== ''">{{ this.errorMessage }}</p>
+      <button class="btn btn-danger" @click="delCategory">Remove</button>
+      <p v-if="error" class="text-danger pt-2 mb-0">{{ this.error }}</p>
     </td>
   </tr>
 </template>
@@ -24,9 +19,10 @@ export default {
   props: ['category', 'edit', 'errorMessage'],
   data() {
     return {
-      newEdit: this.error,
+      newEdit: this.edit,
       libraryItemsinCat: [],
       apiURI: 'http://localhost:8000/api/categories',
+      error: '',
     };
   },
   methods: {
@@ -41,6 +37,20 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.libraryItemsinCat = data;
+        });
+    },
+    delCategory() {
+      fetch(this.apiURI + `/${this.category._id}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(res => {
+          if (res.statusCode === 200) {
+            EventBus.$emit('delCategory', this.category._id);
+            this.error = null;
+          } else {
+            this.error = res.message;
+          }
         });
     },
   },

@@ -3,35 +3,26 @@
     <h1 class="py-4 border-bottom text-left">Categories</h1>
     <div v-if="!edit" class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Add a new Category</h2>
-      <addCategory
-        @add-category="addCategory"
-        :categories="categories"
-        :errorMessage="errorMessage"
-      />
+      <addCategory :categories="categories" />
     </div>
 
     <div v-if="edit" class="py-5 mb-4 col-md-6">
       <h2 class="text-left mb-4">Edit Category</h2>
       <editCategory
-        :errorMessage="errorMessage"
         :apiURI="apiURI"
-        @update-table="updateTable"
-        @handle-errors="handleErrors"
         :edit="edit"
-        @edit-change="editChange"
+        :copyCategory="copyCategory"
       />
     </div>
     <div class="col-12">
       <div class="mb-4">
-      <h2 class="text-left mb-4">Added Categories</h2>
-        <p>Pls note that you can only delete a Category that doesn't contain any Library Items.</p>
+        <h2 class="text-left mb-4">Added Categories</h2>
+        <p>
+          Pls note that you can only delete a Category that doesn't contain any
+          Library Items.
+        </p>
       </div>
-      <categoriesTable
-        :errorMessage="errorMessage"
-        :categories="categories"
-        @delete-category="delCategory"
-        :edit="edit"
-      />
+      <categoriesTable :categories="categories" :edit="edit"/>
     </div>
   </div>
 </template>
@@ -53,8 +44,8 @@ export default {
     return {
       categories: [],
       apiURI: 'http://localhost:8000/api/categories',
-      errorMessage: '',
       edit: false,
+      copyCategory:'',
     };
   },
   methods: {
@@ -66,51 +57,39 @@ export default {
           this.categories = categoriesInDb;
         });
     },
-    addCategory(input) {
-      fetch(this.apiURI + '/new', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({
-          name: input,
-        }),
-      })
-        .then(response => response.json())
-        .then(this.handleErrors)
-        // .then(data => console.log(data))
-        // this.fetchNoOfLibraryItemsinCategory(data._id)
-        .then(() => this.fetchCategories());
-      EventBus.$emit('addCategory', this.categories);
-    },
-    delCategory(id) {
-      fetch(this.apiURI + `/${id}`, {
-        method: 'DELETE',
-      })
-        .then(response => response.json())
-        .then(this.handleErrors)
-        .then(() => this.fetchCategories());
-    },
-    handleErrors(res) {
-      if (res.statusCode !== 200 && res.statusCode !== 201) {
-        this.errorMessage = res.message;
-      }
-      return res;
-    },
-    updateTable() {
-      this.fetchCategories();
-      this.edit = false;
-    },
-    editChange(value) {
-      this.edit = value;
-    },
+    // handleErrors(res) {
+    //   if (res.statusCode !== 200 && res.statusCode !== 201) {
+    //     this.errorMessage = res.message;
+    //   }
+    //   return res;
+    // },
+    // updateTable() {
+    //   this.fetchCategories();
+    //   this.edit = false;
+    // },
+    // editChange(value) {
+    //   this.edit = value;
+    // },
   },
   created() {
     this.fetchCategories();
   },
   mounted() {
+    EventBus.$on('categoryUpdated', (category) => {
+      this.edit = false
+      this.categories= this.categories.map(x =>
+        category._id === x._id ? category : x
+      )
+    });
     EventBus.$on('editCategory', (category, newEdit) => {
       this.edit = newEdit;
+      this.copyCategory= category;
+    });
+    EventBus.$on('addCategory', category => {
+      this.categories.push(category);
+    });
+    EventBus.$on('delCategory', id => {
+      this.categories = this.categories.filter(category => category._id !== id);
     });
   },
 };
