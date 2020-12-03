@@ -6,9 +6,9 @@
         <select
           class="custom-select"
           id="category"
-          :class="{ 'is-invalid': error }"
           v-model="item.category"
         >
+          <!-- :class="{ 'is-invalid': error }" -->
           <option value="" disabled="" selected="">Choose...</option>
           <option v-for="category in this.categories" :key="category._id">
             {{ category.name }}
@@ -26,8 +26,8 @@
           class="form-control"
           id="title"
           v-model="item.title"
-          :class="{ 'is-invalid': error }"
         />
+          <!-- :class="{ 'is-invalid': error }" -->
         <div class="invalid-feedback">Please insert a valid title!</div>
       </div>
 
@@ -38,8 +38,8 @@
           class="form-control"
           id="author"
           v-model="item.author"
-          :class="{ 'is-invalid': error }"
         />
+          <!-- :class="{ 'is-invalid': error }" -->
         <div class="invalid-feedback">Please insert a valid author!</div>
       </div>
     </div>
@@ -52,8 +52,8 @@
           class="form-control"
           id="pages"
           v-model="item.pages"
-          :class="{ 'is-invalid': error }"
         />
+          <!-- :class="{ 'is-invalid': error }" -->
         <div class="invalid-feedback">Please provide a valid input.</div>
       </div>
     </div>
@@ -105,7 +105,7 @@ export default {
         isBorrowable: '',
         type: '',
       },
-      error: false,
+      // error: false,
     };
   },
   methods: {
