@@ -9,10 +9,10 @@ router.get('/:id', LibraryItemModel.getOneLibraryItem);
 router.post('/new', LibraryItemModel.createLibraryItem);
 //update specific library item
 router.patch('/:id', LibraryItemModel.updateLibraryItem);
-//check out library item
-router.patch('/:id', LibraryItemModel.checkOutLibraryItem);
-// check in library item
-router.patch('/:id', LibraryItemModel.checkInLibraryItem);
+//lend library item
+// router.patch('/:id', LibraryItemModel.lendLibraryItem);
+// // check in library item
+// router.patch('/:id', LibraryItemModel.checkInLibraryItem);
 //delete specific library item
 router.delete('/:id', LibraryItemModel.deleteLibraryItem);
 

@@ -55,9 +55,6 @@ export default {
       })
         .then(response => response.json())
         .then(response => this.handleErrors(response));
-      // .then(data => console.log(data))
-      // .then(data => this.$emit('update-table', data));
-      // (this.newName = ''), (this.error = false);
     },
     //Fetches categories from DB with api
     fetchCategories() {

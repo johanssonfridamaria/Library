@@ -66,36 +66,6 @@
         <div class="invalid-feedback">Please provide a valid input.</div>
       </div>
     </div>
-
-    <div v-if="showBorrow" class="form-group mb-3">
-      <label>Borrowable</label>
-      <div class="custom-control custom-radio">
-        <input
-          type="radio"
-          id="borrowable"
-          name="isBorrowable"
-          class="custom-control-input"
-          v-model="copyItem.isBorrowable"
-          value="true"
-        />
-        <label class="custom-control-label" for="borrowable">Yes</label>
-      </div>
-      <div class="custom-control custom-radio">
-        <input
-          type="radio"
-          id="notBorrowable"
-          name="isBorrowable"
-          class="custom-control-input"
-          v-model="copyItem.isBorrowable"
-          value="false"
-          required
-        />
-        <label class="custom-control-label" for="notBorrowable">No</label>
-      </div>
-      <div class="invalid-feedback">
-        Please select if the item is borrowable!
-      </div>
-    </div>
     <button class="btn btn-dark py-2 px-4" type="submit">UPDATE</button>
   </form>
 </template>
@@ -109,8 +79,6 @@ export default {
       copyItem: this.item,
       show: true,
       showRunTime: true,
-      showBorrow: true
-      // error: false,
     };
   },
   methods: {
@@ -120,9 +88,8 @@ export default {
         this.copyItem.title !== '' &&
         this.copyItem.author !== '' &&
         this.copyItem.pages !== '' &&
-        this.copyItem.isBorrowable !== ''
+        this.copyItem.runTimeMinues !== ''
       ) {
-        // this.category_id(this.categories);
         this.$emit('update-item', this.copyItem);
         e.target.forEach(i => i.classList.remove('is-invalid'));
       } else {
@@ -140,7 +107,6 @@ export default {
     if (this.item.type === 'book') {
       this.showRunTime = false;
     } else if (this.item.type === 'ref-book') {
-      this.showBorrow = false;
       this.showRunTime = false;
     } else if (this.item.type === 'audio-book' || this.item.type ===  'dvd') {
       this.show = false;

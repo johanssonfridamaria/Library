@@ -50,6 +50,7 @@ const routes = [
         name: 'LendItem',
         component: () =>
           import(/* webpackChunkName: 'lend-library-item' */ '../views/LibraryItems/LendItem'),
+          props:true,
       },
     ]
   },
