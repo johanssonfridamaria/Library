@@ -34,7 +34,7 @@
     <td class="text-center">{{ item.runTimeMinutes }}</td>
     <td class="text-center">{{ item.isBorrowable }}</td>
     <td>{{ item.borrower }}</td>
-    <td>{{ item.borrowDate && item.borrowDate.toString() }}</td>
+    <td>{{ item.borrowDate && item.borrowDate.substring(0,10) }}</td>
   </tr>
 </template>
 
