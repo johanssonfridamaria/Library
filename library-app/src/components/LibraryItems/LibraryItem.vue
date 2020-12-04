@@ -1,27 +1,27 @@
 <template>
   <tr class="align-items-center">
-    <td>
+    <td class="text-center">
       <router-link
         :to="{ name: 'EditItem', params:{ item: this.item} }"
         exact
-        class="btn btn-primary"
+        class="btn btn-table "
       >
-        Edit
+        <i class="fas fa-edit"></i>
       </router-link>
     </td>
-    <td>
-      <button class="btn btn-danger" @click="$emit('delete-item', item._id)">
-        Remove
+    <td class="text-center">
+      <button class="btn btn-table text-danger" @click="$emit('delete-item', item._id)">
+        <i class="fas fa-trash-alt"></i>
       </button>
     </td>
-    <th scope="row">{{ item._id }}</th>
+    <!-- <th scope="row">{{ item._id }}</th> -->
     <td>{{ item.type }}</td>
     <td>{{ item.category && item.category.name }}</td>
     <td>{{ item.title }}</td>
     <td>{{ item.author }}</td>
-    <td>{{ item.pages }}</td>
-    <td>{{ item.runTimeMinutes }}</td>
-    <td>{{ item.isBorrowable }}</td>
+    <td class="text-center">{{ item.pages }}</td>
+    <td class="text-center">{{ item.runTimeMinutes }}</td>
+    <td class="text-center">{{ item.isBorrowable }}</td>
     <td>{{ item.borrower }}</td>
     <td>{{ item.borrowDate }}</td>
   </tr>

@@ -1,13 +1,13 @@
 <template>
   <tr class="align-items-center">
-    <th scope="row">{{ category._id }}</th>
-    <td>{{ category.name }}</td>
-    <td>{{ libraryItemsinCat.length }}</td>
-    <td><button class="btn btn-primary" @click="editCategory">Edit</button></td>
-    <td>
-      <button class="btn btn-danger" @click="delCategory">Remove</button>
+    <td class="text-center"><button class="btn btn-table" @click="editCategory"><i class="fas fa-edit"></i></button></td>
+    <td class="text-center">
+      <button class="btn btn-table text-danger" @click="delCategory"><i class="fas fa-trash-alt"></i></button>
       <p v-if="error" class="text-danger pt-2 mb-0">{{ this.error }}</p>
     </td>
+    <th scope="row">{{ category._id }}</th>
+    <td>{{ category.name }}</td>
+    <td class="text-center">{{ libraryItemsinCat.length }}</td>
   </tr>
 </template>
 

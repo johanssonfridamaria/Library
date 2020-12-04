@@ -4,11 +4,11 @@
       <table class="table table-bordered table-hover">
         <thead class="thead-dark">
           <tr>
+            <th class="text-center" scope="col">Edit</th>
+            <th class="text-center" scope="col">Remove</th>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
-            <th scope="col">Number of Library Items</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Remove</th>
+            <th class="text-center" scope="col">No. of LibraryItems</th>
           </tr>
         </thead>
         <tbody>
@@ -37,7 +37,6 @@ export default {
   components: {
     CategoryItem,
   },
-
 };
 </script>
 

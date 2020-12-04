@@ -29,11 +29,11 @@
             Library Items
           </router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link :to="{ name: 'Employees' }" exact class="nav-link">
             Employees
           </router-link>
-        </li>
+        </li> -->
       </ul>
     </div>
   </nav>

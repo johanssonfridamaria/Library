@@ -21,4 +21,15 @@ td,
 th {
   vertical-align: middle !important;
 }
+.btn-table {
+  font-size: 0.8rem;
+  background-color: transparent;
+  border: transparent;
+  padding: 0;
+}
+@media (max-width: 991.98px) {
+  table {
+    font-size: 0.8rem;
+  }
+}
 </style>
