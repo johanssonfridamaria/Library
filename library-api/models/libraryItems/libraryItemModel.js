@@ -96,50 +96,6 @@ exports.updateLibraryItem = (req, res) => {
   });
 };
 
-// //Lend Library Item
-// exports.lendLibraryItem = (req, res) => {
-//   LibraryItem.updateOne({ _id: req.params.id }, req.body)
-//   .then(() => {
-//       LibraryItem.updateOne({ _id: req.params.id }, { $set: {borrowDate: Date.now(),modified: Date.now()}})
-//       .then(() => {
-//           res.status(200).json({
-//               statusCode: 200,
-//               status: true,
-//               message: 'LibraryItem checked out'
-//           });
-//       });
-//   })
-//   .catch(() => {
-//       res.status(500).json({
-//           statusCode: 500,
-//           status: false,
-//           message: 'Failed to check out library item'
-//       });
-//   });
-// };
-
-// //Check in Library Item
-// exports.checkInLibraryItem = (req, res) => {
-//   LibraryItem.updateOne({ _id: req.params.id }, req.body)
-//   .then(() => {
-//       LibraryItem.updateOne({ _id: req.params.id }, { $set: {borrower:'', borrowDate: '', isBorrowable:true,}})
-//       .then(() => {
-//           res.status(200).json({
-//               statusCode: 200,
-//               status: true,
-//               message: 'LibraryItem checked in'
-//           });
-//       });
-//   })
-//   .catch(() => {
-//       res.status(500).json({
-//           statusCode: 500,
-//           status: false,
-//           message: 'Failed to check in library item'
-//       });
-//   });
-// };
-
 //delete libraryItem
 exports.deleteLibraryItem= (req, res) => {
   LibraryItem.deleteOne({ _id: req.params.id })
