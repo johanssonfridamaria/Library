@@ -3,6 +3,7 @@ const mongodb = require('mongoose');
 
 const Category = require('./categorySchema');
 const LibraryItem = require('../libraryItems/libraryItemSchema');
+
 //get all categories in Categories
 exports.getCategories = (req, res) => {
   Category.find()
@@ -65,7 +66,7 @@ exports.createCategory = (req, res) => {
     });
 };
 
-//update category
+//update a specifik category
 exports.updateCategory = (req, res) => {
   Category.find({ name: { $regex: new RegExp(req.body.name, "i") } })
     .then(exists => {
