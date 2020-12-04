@@ -14,7 +14,6 @@
               <th class="text-center" scope="col">Check/in-out</th>
               <th class="text-center" scope="col">Edit</th>
               <th class="text-center" scope="col">Remove</th>
-              <!-- <th scope="col">Id</th> -->
               <th class="text-center" @click="sort('type')" scope="col">
                  <span class="d-flex align-items-center">
                 Type
@@ -121,7 +120,6 @@ export default {
   },
   methods: {
     sort: function (s) {
-      //if s == current sort, reverse
       if (s === this.currentSort) {
         this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
       }

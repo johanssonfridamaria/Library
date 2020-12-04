@@ -11,7 +11,6 @@
           id="category"
           v-model="copyItem.category._id"
         >
-          <!-- <option value="" disabled="" selected="">Choose...</option> -->
           <option v-for="category in this.categories" :key="category._id" :value="category._id">
             {{ category.name }}
           </option>

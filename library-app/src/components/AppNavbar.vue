@@ -29,11 +29,6 @@
             Library Items
           </router-link>
         </li>
-        <!-- <li class="nav-item">
-          <router-link :to="{ name: 'Employees' }" exact class="nav-link">
-            Employees
-          </router-link>
-        </li> -->
       </ul>
     </div>
   </nav>

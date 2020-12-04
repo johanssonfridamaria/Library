@@ -1,10 +1,6 @@
 <template>
   <div v-if="this.copyItem.type !== 'ref-book'">
     <form @submit.prevent="lendItem">
-      <!-- <div class="mb-3">
-      {{ this.statusMessage }}
-    </div> -->
-
       <div class="form-group mb-3">
         <label>Do you want to check in or Check Out Item?</label>
         <div class="custom-control custom-radio">

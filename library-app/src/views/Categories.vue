@@ -57,19 +57,6 @@ export default {
           this.categories = categoriesInDb;
         });
     },
-    // handleErrors(res) {
-    //   if (res.statusCode !== 200 && res.statusCode !== 201) {
-    //     this.errorMessage = res.message;
-    //   }
-    //   return res;
-    // },
-    // updateTable() {
-    //   this.fetchCategories();
-    //   this.edit = false;
-    // },
-    // editChange(value) {
-    //   this.edit = value;
-    // },
   },
   created() {
     this.fetchCategories();

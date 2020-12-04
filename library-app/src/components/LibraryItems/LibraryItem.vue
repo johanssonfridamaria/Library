@@ -26,7 +26,6 @@
         <i class="fas fa-trash-alt"></i>
       </button>
     </td>
-    <!-- <th scope="row">{{ item._id }}</th> -->
     <td>{{ item.type.toUpperCase() }}</td>
     <td>{{ item.category && item.category.name }}</td>
     <td>{{ item.title }} ({{this.acrTitle}})</td>
@@ -40,7 +39,6 @@
 </template>
 
 <script>
-// import EventBus from '../../event-bus';
 
 export default {
   name: 'LibraryItem',
@@ -52,9 +50,6 @@ export default {
     }
   },
   methods: {
-    // editItem() {
-    //   EventBus.$emit('edit-item', this.item);
-    // },
       acronymTitel(title){
       const words = title.split(' ');
       const acronym = words.map(word =>

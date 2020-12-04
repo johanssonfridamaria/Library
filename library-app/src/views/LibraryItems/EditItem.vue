@@ -19,7 +19,6 @@
 
 <script>
 import EditItemForm from '../../components/LibraryItems/Forms/EditItemForm';
-// import EventBus from '../../event-bus';
 
 export default {
   name: 'EditItem',

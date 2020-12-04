@@ -54,12 +54,6 @@ const routes = [
       },
     ]
   },
-  // {
-  //   path: '/employees',
-  //   name: 'Employees',
-  //   component: () =>
-  //     import(/* webpackChunkName: 'employees' */ '../views/Employees.vue'),
-  // },
 ];
 
 const router = new VueRouter({
