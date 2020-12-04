@@ -6,7 +6,6 @@
       <p v-if="error" class="text-danger pt-2 mb-0">{{ this.error }}</p>
     </td>
     <td>{{ category.name }}</td>
-    <th scope="row">{{ category._id }}</th>
     <td class="text-center">{{ libraryItemsinCat.length }}</td>
   </tr>
 </template>

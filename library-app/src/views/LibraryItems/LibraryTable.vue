@@ -1,10 +1,6 @@
 <template>
   <div>
     <div class="mb-4">
-      <p>
-        To edit an Item pls select the edit button and you will be redirected to
-        another page.
-      </p>
     </div>
     <div class="table-responsive table-sm">
       <div v-if="libraryItems.length">

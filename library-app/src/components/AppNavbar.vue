@@ -20,13 +20,13 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'Categories' }" exact class="nav-link">
-            Categories
+          <router-link :to="{ name: 'LibraryTable' }" exact class="nav-link">
+            Library Items
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'LibraryTable' }" exact class="nav-link">
-            Library Items
+          <router-link :to="{ name: 'Categories' }" exact class="nav-link">
+            Categories
           </router-link>
         </li>
       </ul>

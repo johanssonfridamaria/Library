@@ -7,8 +7,7 @@
             <th class="text-center" scope="col">Edit</th>
             <th class="text-center" scope="col">Remove</th>
             <th scope="col">Name</th>
-            <th scope="col">Id</th>
-            <th class="text-center" scope="col">No. of LibraryItems</th>
+            <th class="text-center" scope="col">No. of Library items</th>
           </tr>
         </thead>
         <tbody>
