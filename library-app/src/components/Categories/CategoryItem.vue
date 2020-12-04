@@ -5,8 +5,8 @@
       <button class="btn btn-table text-danger" @click="delCategory"><i class="fas fa-trash-alt"></i></button>
       <p v-if="error" class="text-danger pt-2 mb-0">{{ this.error }}</p>
     </td>
-    <th scope="row">{{ category._id }}</th>
     <td>{{ category.name }}</td>
+    <th scope="row">{{ category._id }}</th>
     <td class="text-center">{{ libraryItemsinCat.length }}</td>
   </tr>
 </template>

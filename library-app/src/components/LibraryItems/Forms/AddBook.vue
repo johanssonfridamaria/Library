@@ -54,35 +54,6 @@
       </div>
     </div>
 
-    <div class="form-group mb-5">
-      <label>Borrowable</label>
-      <div class="custom-control custom-radio">
-        <input
-          type="radio"
-          id="borrowable"
-          name="isBorrowable"
-          class="custom-control-input"
-          v-model="item.isBorrowable"
-          value="true"
-        />
-        <label class="custom-control-label" for="borrowable">Yes</label>
-      </div>
-      <div class="custom-control custom-radio">
-        <input
-          type="radio"
-          id="notBorrowable"
-          name="isBorrowable"
-          class="custom-control-input"
-          v-model="item.isBorrowable"
-          value="false"
-          required
-        />
-        <label class="custom-control-label" for="notBorrowable">No</label>
-      </div>
-      <div class="invalid-feedback">
-        Please select if the item is borrowable!
-      </div>
-    </div>
     <button class="btn btn-dark py-2 px-4" type="submit">ADD</button>
   </form>
 </template>
@@ -98,7 +69,7 @@ export default {
         title: '',
         author: '',
         pages: '',
-        isBorrowable: '',
+        isBorrowable: true,
         type: '',
       },
     };
@@ -109,8 +80,7 @@ export default {
         this.item.category !== '' &&
         this.item.title !== '' &&
         this.item.author !== '' &&
-        this.item.pages !== '' &&
-        this.item.isBorrowable !== ''
+        this.item.pages !== ''
       ) {
         this.item.type = this.selType;
         this.$emit('add-item', this.item);

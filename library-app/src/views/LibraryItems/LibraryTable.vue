@@ -11,6 +11,7 @@
         <table class="table table-bordered table-hover">
           <thead class="thead-dark">
             <tr>
+              <th class="text-center" scope="col">Check/in-out</th>
               <th class="text-center" scope="col">Edit</th>
               <th class="text-center" scope="col">Remove</th>
               <!-- <th scope="col">Id</th> -->
