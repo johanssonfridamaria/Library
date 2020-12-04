@@ -12,7 +12,7 @@ router.post('/new', categoryModel.createCategory);
 router.patch('/:id', categoryModel.updateCategory);
 //delete specific category
 router.delete('/:id', categoryModel.deleteCategory);
-
+// get libraryItems with specifik CategoryID
 router.get('/:id/libraryItems', LibraryItemModel.getLibraryItemsByCatId );
 
 //export router
